@@ -15,6 +15,16 @@ services:
       - coopers-epeixoto
     restart: "on-failure"
 
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    networks:
+      - coopers-epeixoto
+    restart: "on-failure"
+    depends_on:
+      - client
+
 networks:
   coopers-epeixoto:
     driver: bridge
