@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  client:
+    build:
+      context: ./client
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+      - /client/.next
+    ports:
+      - "3000:3000"
+    networks:
+      - coopers-epeixoto
+    restart: "on-failure"
+
+networks:
+  coopers-epeixoto:
+    driver: bridge
