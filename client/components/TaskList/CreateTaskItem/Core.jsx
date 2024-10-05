@@ -23,7 +23,7 @@ const CreateTaskItem = () => {
 
   return (
     <button className="relative w-full group flex gap-4 py-2 text-[16px] transition-all text-secondary">
-      <img className="w-[20px] h-[20px] " src={elipse.src}></img>
+      <img className="w-[20px] h-[20px]" src={elipse.src} alt="Create a new task"></img>
       <input
         type="text"
         id="create-to-do-item"

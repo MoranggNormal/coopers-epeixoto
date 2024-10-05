@@ -38,7 +38,7 @@ const TaskList = () => {
         <div className="flex flex-col py-4 items-center">
           <p className="font-bold text-[40px]">Done</p>
           <p className="text-[24px] text-center">
-            Congratulations!. <br />{" "}
+            Congratulations! <br />{" "}
             <span className="font-bold">You have done 5 tasks</span>
           </p>
         </div>

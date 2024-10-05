@@ -37,8 +37,8 @@ const Hero = () => {
         href="#to-do-list"
         className="absolute bottom-4 left-1/2 -translate-x-1/2 -ml-[25px] sm:-ml-[40px] md:-ml-[80px] xl:-ml-[120px] 2xl:-ml-[400px] 3xl:-ml-[550px]"
       >
-        <button role="navigate">
-          <img className="w-[40px] h-[40px] " src={iconScroll.src}></img>
+        <button name="navigate">
+          <img className="w-[40px] h-[40px]" src={iconScroll.src} alt="arrow bottom"></img>
         </button>
       </Link>
     </section>

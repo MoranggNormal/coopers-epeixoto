@@ -33,3 +33,24 @@ body {
   background-image: url("../static/images/slides.png");
   background-repeat: no-repeat;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: transparent !important;
+  background-image: url('../app/icons/coopers-icon.svg') !important;
+  background-repeat: no-repeat;
+  background-size: 90%;
+}
+
+.swiper-button-next {
+  transform: rotate(180deg)
+}
+
+.swiper-pagination-bullet {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--primary) !important;
+}

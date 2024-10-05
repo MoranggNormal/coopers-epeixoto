@@ -10,6 +10,8 @@ const TaskItem = ({ id, description }) => {
   const [text, setText] = useState(description);
   const [isChecked, setIsChecked] = useState(false);
 
+  const taskId = `task-${id}`;
+
   const handleChange = (e) => {
     setText(() => e.target.value);
   };
@@ -23,17 +25,21 @@ const TaskItem = ({ id, description }) => {
       <img
         className="w-[20px] h-[20px] cursor-pointer"
         src={isChecked ? checkedIicon.src : elipse.src}
+        alt="Complete task"
         onClick={() => setIsChecked((prev) => !prev)}
       />
 
-      <input
-        type="text"
-        id={id}
-        className="cursor-text"
-        value={text}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
+      <label htmlFor={taskId}>
+        <input
+          type="text"
+          id={taskId}
+          className="cursor-text"
+          label="Task item"
+          value={text}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+      </label>
 
       <DeleteItem id={id} />
     </button>
