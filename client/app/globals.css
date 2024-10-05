@@ -19,3 +19,15 @@ body {
     text-wrap: balance;
   }
 }
+
+.slides{
+  background-image: url("../static/images/slides.png");
+}
+
+.bg-hero{
+  background-image: url("../static/images/bg-hero.svg");
+}
+
+.slides, .bg-hero{
+  background-repeat: no-repeat;
+}

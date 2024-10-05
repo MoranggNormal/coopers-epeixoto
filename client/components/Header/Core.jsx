@@ -3,7 +3,7 @@ import logo from "@/app/icons/logo.svg";
 
 const Header = () => {
   return (
-    <header className="w-full absolute top-[54px] px-[24px] md:px-[60px] lg:px-[80px]">
+    <header className="w-full absolute top-[54px] px-[24px] md:px-[60px] lg:px-[80px] z-10">
       <div className="flex justify-between">
         <div>
           <Image
@@ -15,7 +15,7 @@ const Header = () => {
           />
         </div>
         <div className="">
-          <button className="bg-black w-[120px] h-[40px] text-[14px] leading-[21px] font-bold text-white">
+          <button className="bg-black w-[120px] h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer">
             Sign in
           </button>
         </div>
