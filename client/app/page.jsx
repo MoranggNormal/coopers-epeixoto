@@ -4,6 +4,7 @@ import ToDoInfo from "@/components/ToDoInfo/Core";
 import TaskList from "@/components/TaskList/Core";
 import Blog from "@/components/Blog/Core";
 import Contact from "@/components/Contact/Core";
+import Footer from "@/components/Footer/Core";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <TaskList />
       <Blog />
       <Contact />
+      <Footer />
     </main>
   );
 }
