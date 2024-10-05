@@ -14,8 +14,8 @@ const Header = () => {
             priority
           />
         </div>
-        <div className="">
-          <button className="bg-black w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer">
+        <div>
+          <button className="bg-black w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-up transition-all">
             Sign in
           </button>
         </div>

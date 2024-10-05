@@ -25,11 +25,9 @@ const Hero = () => {
 
         <Link
           href="#to-do-list"
-          className="absolute top-[464px] z-20 font-bold text-white text-[24px] leading-[29px]"
+          className="absolute top-[464px] z-20 font-bold text-white text-[24px] leading-[29px] w-[240px] md:w-[300px] h-[64px] bg-primary rounded-[10px] transition-all grid place-content-center hover-up"
         >
-          <button className="z-20 w-[240px] md:w-[300px] h-[64px] bg-primary rounded-[10px]">
-            Go to To-do list
-          </button>
+          Go to To-do list
         </Link>
       </div>
 
@@ -38,7 +36,11 @@ const Hero = () => {
         className="absolute bottom-4 left-1/2 -translate-x-1/2 -ml-[25px] sm:-ml-[40px] md:-ml-[80px] xl:-ml-[120px] 2xl:-ml-[400px] 3xl:-ml-[550px]"
       >
         <button name="navigate">
-          <img className="w-[40px] h-[40px]" src={iconScroll.src} alt="arrow bottom"></img>
+          <img
+            className="w-[40px] h-[40px]"
+            src={iconScroll.src}
+            alt="arrow bottom"
+          ></img>
         </button>
       </Link>
     </section>

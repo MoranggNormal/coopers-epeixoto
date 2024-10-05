@@ -5,12 +5,14 @@ import coopersIcon from "@/app/icons/coopers-icon.svg";
 const Post = ({ id, context, title, imageSrc }) => {
   return (
     <div className="w-[260px] lg:w-[360px] h-[430px] rounded-[16px] bg-white shadow-lg">
-      <div className="w-full h-1/2 relative">
-        <img
-          className="w-full h-full object-cover rounded-t-[16px]"
-          src={imageSrc}
-          alt={context}
-        />
+      <div className="w-full h-1/2 relative ">
+        <div className="overflow-hidden w-full h-full rounded-t-[16px]">
+          <img
+            className="w-full h-full object-cover hover:scale-110 transition-all"
+            src={imageSrc}
+            alt={context}
+          />
+        </div>
 
         <img
           src={coopersIcon.src}

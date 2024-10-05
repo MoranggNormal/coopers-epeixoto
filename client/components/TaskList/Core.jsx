@@ -10,13 +10,13 @@ import { ERASE_ITEMS } from "@/constants/task-items";
 
 import graphism from "@/static/images/graphism.svg";
 
-const CARD_LIST_CLASSES = (color) =>
-  `w-[320px] md:w-[380px] min-h-[600px] border-t-[20px] border-t-${color} shadow-lg bg-background`;
+const CARD_LIST_CLASSES =
+  "w-[320px] md:w-[380px] min-h-[600px] border-t-[20px] shadow-lg bg-background";
 
 const TaskList = () => {
   return (
     <section className="relative my-24 w-full flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8">
-      <div className={CARD_LIST_CLASSES("secondary")}>
+      <div className={CARD_LIST_CLASSES + " border-t-secondary"}>
         <div className="flex flex-col py-4 items-center">
           <p className="font-bold text-[40px]">To-do</p>
           <p className="text-[24px] text-center">
@@ -34,7 +34,7 @@ const TaskList = () => {
         </div>
       </div>
 
-      <div className={CARD_LIST_CLASSES("primary")}>
+      <div className={CARD_LIST_CLASSES + " border-t-primary"}>
         <div className="flex flex-col py-4 items-center">
           <p className="font-bold text-[40px]">Done</p>
           <p className="text-[24px] text-center">

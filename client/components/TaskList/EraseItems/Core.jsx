@@ -17,7 +17,7 @@ const EraseItems = ({ context }) => {
   return (
     <button
       onClick={() => requestEraseItems()}
-      className="w-[260px] md:w-[300px] h-[64px] bg-black text-white font-bold text-[24px] rounded-[10px] my-10"
+      className="w-[260px] md:w-[300px] h-[64px] bg-black text-white font-bold text-[24px] rounded-[10px] my-10 hover-up transition-all"
     >
       Erase All
     </button>

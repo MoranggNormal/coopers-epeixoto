@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -11,15 +13,37 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: "var(--primary)",
-        secondary: "var(--secondary)"
+        secondary: "var(--secondary)",
       },
       rotate: {
-        '4': '4deg',
+        4: "4deg",
       },
       screens: {
-        '3xl': '2560px',
+        "3xl": "2560px",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addComponents, theme }) =>
+      addComponents({
+        ".hover-up": {
+          "&:hover": {
+            transform: "translateY(-8px)",
+            opacity: "0.90",
+          },
+        },
+      })
+    ),
+
+    plugin(({ addComponents, theme }) =>
+      addComponents({
+        ".hover-down": {
+          "&:hover": {
+            transform: "translateY(8px)",
+            opacity: "0.90",
+          },
+        },
+      })
+    ),
+  ],
 };
