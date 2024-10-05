@@ -5,11 +5,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #4AC959;
+  --primary: #4ac959;
 }
 
-body, html{
+body,
+html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,14 +28,7 @@ body {
   }
 }
 
-.slides{
+.slides {
   background-image: url("../static/images/slides.png");
-}
-
-.bg-hero{
-  background-image: url("../static/images/bg-hero.svg");
-}
-
-.slides, .bg-hero{
   background-repeat: no-repeat;
 }

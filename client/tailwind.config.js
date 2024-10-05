@@ -12,6 +12,12 @@ module.exports = {
         foreground: "var(--foreground)",
         primary: "var(--primary)",
       },
+      rotate: {
+        '4': '4deg',
+      },
+      screens: {
+        '3xl': '2560px',
+      },
     },
   },
   plugins: [],
