@@ -24,7 +24,7 @@ const Post = ({ id, context, title, imageSrc }) => {
             {context}
           </span>
 
-          <h4 className="mt-4 text-[18px] text-[#312F4F]">{title}</h4>
+          <p className="mt-4 text-[18px] text-[#312F4F]">{title}</p>
         </div>
 
         <div className="mt-auto">

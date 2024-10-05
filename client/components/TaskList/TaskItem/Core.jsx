@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import elipse from "@/app/icons/elipse.svg";
-import checkedIicon from "@/app/icons/checked-icon.svg";
+import checkedIcon from "@/app/icons/checked-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
 
 const TaskItem = ({ id, description }) => {
@@ -21,28 +21,34 @@ const TaskItem = ({ id, description }) => {
   };
 
   return (
-    <button className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-default">
-      <img
+    <div className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-default">
+      <button
         className="w-[20px] h-[20px] cursor-pointer"
-        src={isChecked ? checkedIicon.src : elipse.src}
-        alt="Complete task"
         onClick={() => setIsChecked((prev) => !prev)}
-      />
-
-      <label htmlFor={taskId}>
-        <input
-          type="text"
-          id={taskId}
-          className="cursor-text"
-          label="Task item"
-          value={text}
-          onChange={handleChange}
-          onBlur={handleBlur}
+        aria-label={
+          isChecked ? "Mark task as incomplete" : "Mark task as complete"
+        }
+      >
+        <img
+          src={isChecked ? checkedIcon.src : elipse.src}
+          alt="Complete task"
         />
-      </label>
-
+      </button>
+      <label htmlFor={taskId} className="sr-only">
+        Task item
+      </label>{" "}
+      {/* Ensures a hidden but accessible label */}
+      <input
+        type="text"
+        id={taskId}
+        className="cursor-text"
+        value={text}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        aria-label="Task description"
+      />
       <DeleteItem id={id} />
-    </button>
+    </div>
   );
 };
 

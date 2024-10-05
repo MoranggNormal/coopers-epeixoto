@@ -6,9 +6,9 @@ const ToDoInfo = () => {
     >
       <div className="absolute w-[200%] h-[75%] bg-black -rotate-4 -z-20" />
       <div>
-        <h3 className="font-bold text-white text-[60px] leading-[60px] text-center underline underline-offset-[16px] decoration-2 decoration-primary">
+        <h1 className="font-bold text-white text-[60px] leading-[60px] text-center underline underline-offset-[16px] decoration-2 decoration-primary">
           To-do List
-        </h3>
+        </h1>
         <p className="mt-8 font-normal text-white text-[24px] leading-[29px] text-center">
           Drag and drop to set your main priorities, check <br /> when done and
           create what´s new.
