@@ -1,0 +1,18 @@
+export const toDos = [
+  { id: 1, description: "Develop the To-do list page" },
+  { id: 2, description: "lorem" },
+  { id: 3, description: "E-mail John about the deadline" },
+  { id: 4, description: "dollor" },
+  { id: 5, description: "Develop the To-do list page" },
+  { id: 6, description: "lorem" },
+  { id: 7, description: "ipsum" },
+  { id: 8, description: "dollor" },
+  { id: 9, description: "Develop the To-do list page" },
+  { id: 10, description: "lorem" },
+  { id: 11, description: "ipsum" },
+  { id: 12, description: "dollor" },
+  { id: 13, description: "Develop the To-do list page" },
+  { id: 14, description: "E-mail John about the deadline" },
+  { id: 15, description: "ipsum" },
+  { id: 16, description: "dollor" },
+];
