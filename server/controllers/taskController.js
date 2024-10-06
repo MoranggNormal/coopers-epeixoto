@@ -6,7 +6,10 @@ const getTasks = async (req, res) => {
   try {
     const userTasks = await getUserTasks(user.id);
 
-    return res.status(200).json({ tasks: userTasks });
+    const pending = userTasks.filter((task) => task.completed === false)
+    const completed = userTasks.filter((task) => task.completed === true)
+
+    return res.status(200).json({ pending, completed });
   } catch (error) {
     return res.status(500).json({ message: "Error fetching tasks" });
   }

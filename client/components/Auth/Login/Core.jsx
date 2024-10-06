@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@/app/userContext";
 import InputField from "@/components/InputField/Core";
 import SubmitButton from "@/components/SubmitButton/Core";
@@ -8,6 +9,7 @@ import signIn from "@/static/images/signin.png";
 
 const Login = ({ closeModal, setSignUpContext }) => {
   const { login } = useUser();
+  const { refresh } = useRouter();
 
   const [hasError, setHasError] = useState("");
   const [hasManyErrors, setHasManyErrors] = useState([]);
@@ -49,6 +51,7 @@ const Login = ({ closeModal, setSignUpContext }) => {
 
     login(data);
     closeModal();
+    refresh();
   };
 
   return (

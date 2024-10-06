@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@/app/userContext";
 import InputField from "@/components/InputField/Core";
 import SubmitButton from "@/components/SubmitButton/Core";
@@ -8,6 +9,7 @@ import signIn from "@/static/images/signin.png";
 
 const Register = ({ closeModal, setSignInContext }) => {
   const { login } = useUser();
+  const { refresh } = useRouter();
 
   const [hasError, setHasError] = useState("");
   const [hasManyErrors, setHasManyErrors] = useState([]);
@@ -51,6 +53,7 @@ const Register = ({ closeModal, setSignInContext }) => {
     login(data);
     setSignInContext();
     closeModal();
+    refresh();
   };
 
   return (
@@ -103,7 +106,10 @@ const Register = ({ closeModal, setSignInContext }) => {
             <div className="flex flex-col justify-center mt-4">
               {hasManyErrors.map((error, index) => {
                 return (
-                  <span key={index} className="text-left text-[13x] text-red-400 bold">
+                  <span
+                    key={index}
+                    className="text-left text-[13x] text-red-400 bold"
+                  >
                     {error.msg}
                   </span>
                 );
