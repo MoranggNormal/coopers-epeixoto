@@ -8,7 +8,7 @@ const InputField = ({ id, label, type = "text", placeholder, required }) => {
       name={id}
       placeholder={placeholder}
       required={required}
-      className="ring-[1px] ring-[#06152B] placeholder-[#9A9A9A] focus:outline-none hover:border-primary focus:border-primary focus:ring-1 focus:ring-primary rounded-[4px] px-4 py-2"
+      className="ring-[1px] mt-2 ring-[#06152B] placeholder-[#9A9A9A] focus:outline-none hover:border-primary focus:border-primary focus:ring-1 focus:ring-primary rounded-[4px] px-4 py-2"
     />
   </label>
   )

@@ -1,5 +1,5 @@
-import InputField from "./InputField/Core";
-import SubmitButton from "./SubmitButton/Core";
+import InputField from "../InputField/Core";
+import SubmitButton from "../SubmitButton/Core";
 
 import woman from "@/static/images/woman.png";
 import graphism from "@/static/images/graphism-2.svg";

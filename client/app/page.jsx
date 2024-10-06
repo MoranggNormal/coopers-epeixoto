@@ -6,7 +6,7 @@ import Blog from "@/components/Blog/Core";
 import Contact from "@/components/Contact/Core";
 import Footer from "@/components/Footer/Core";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
       <Header />
