@@ -7,7 +7,7 @@ import AuthModal from "@/components/Auth/AuthModal/Core";
 
 const DEFAULT_TASK_ITEM_TEXT = "Editing an item...";
 
-const CreateTaskItem = () => {
+const CreateTaskItem = ({ addNewPendingTask }) => {
   const { user } = useUser();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,7 +40,9 @@ const CreateTaskItem = () => {
       body: bodyContent,
     });
 
-    const newTask = await response.json();
+    const { newTask } = await response.json();
+
+    addNewPendingTask(newTask);
 
     setText(() => "");
   };

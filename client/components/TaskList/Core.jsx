@@ -20,6 +20,10 @@ const TaskList = () => {
   const [pendingTasks, setPendingTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
 
+  const addNewPendingTask = (newTask) => {
+    setPendingTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
   useEffect(() => {
     if (!user) {
       setPendingTasks([]);
@@ -58,7 +62,7 @@ const TaskList = () => {
             ))}
         </div>
         <div className="mx-8">
-          <CreateTaskItem />
+          <CreateTaskItem addNewPendingTask={addNewPendingTask} />
           <EraseItems context={ERASE_ITEMS.PENDING} />
         </div>
       </div>
