@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "@/app/userContext";
 import InputField from "@/components/InputField/Core";
 import SubmitButton from "@/components/SubmitButton/Core";
@@ -6,10 +6,11 @@ import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
 
 import signIn from "@/static/images/signin.png";
 
-const Register = ({ closeModal }) => {
+const Register = ({ closeModal, setSignInContext }) => {
   const { login } = useUser();
 
   const [hasError, setHasError] = useState("");
+  const [hasManyErrors, setHasManyErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,11 +35,21 @@ const Register = ({ closeModal }) => {
     const data = await response.json();
 
     if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
-      setHasError(() => data.message);
+      const {
+        data: { errors, msg },
+      } = data;
+
+      if (errors) {
+        setHasManyErrors(errors);
+        return;
+      }
+
+      setHasError(() => msg);
       return;
     }
 
     login(data);
+    setSignInContext();
     closeModal();
   };
 
@@ -50,7 +61,9 @@ const Register = ({ closeModal }) => {
           <p className="text-[70px]">
             <b>Sign Up</b>
           </p>
-          <p className="text-primary text-[32px]">to start creating your list</p>
+          <p className="text-primary text-[32px]">
+            to start creating your list
+          </p>
         </span>
       </div>
 
@@ -62,17 +75,39 @@ const Register = ({ closeModal }) => {
             id="user-password"
             label="Password:"
             type="password"
+            minLength="6"
             required
           />
           <div>
             <SubmitButton text="Register now" className="w-full mt-8" />
           </div>
 
+          <div className="flex justify-center mt-4">
+            <button
+              className="text-center text-[14px] bold"
+              onClick={setSignInContext}
+            >
+              <u>Already registered</u>
+            </button>
+          </div>
+
           {hasError && (
             <div className="flex justify-center mt-4">
-              <span className="text-center text-[20px] text-red-400 bold">
+              <span className="text-center text-[13px] text-red-400 bold">
                 {hasError}
               </span>
+            </div>
+          )}
+
+          {hasManyErrors && (
+            <div className="flex flex-col justify-center mt-4">
+              {hasManyErrors.map((error, index) => {
+                return (
+                  <span key={index} className="text-left text-[13x] text-red-400 bold">
+                    {error.msg}
+                  </span>
+                );
+              })}
             </div>
           )}
         </form>

@@ -6,10 +6,11 @@ import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
 
 import signIn from "@/static/images/signin.png";
 
-const Login = ({ closeModal }) => {
+const Login = ({ closeModal, setSignUpContext }) => {
   const { login } = useUser();
 
   const [hasError, setHasError] = useState("");
+  const [hasManyErrors, setHasManyErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +34,16 @@ const Login = ({ closeModal }) => {
     const data = await response.json();
 
     if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
-      setHasError(() => data.message);
+      const {
+        data: { errors, msg },
+      } = data;
+
+      if (errors) {
+        setHasManyErrors(errors);
+        return;
+      }
+
+      setHasError(() => msg);
       return;
     }
 
@@ -46,10 +56,10 @@ const Login = ({ closeModal }) => {
       <div className="flex gap-8 items-center">
         <img src={signIn.src} alt="Woman pointing top-right" />
         <span>
-          <p className="text-[80px]">
+          <p className="text-[70px]">
             <b>Sign In</b>
           </p>
-          <p className="text-primary text-[50px]">to access your list</p>
+          <p className="text-primary text-[32px]">to access your list</p>
         </span>
       </div>
 
@@ -66,11 +76,35 @@ const Login = ({ closeModal }) => {
             <SubmitButton text="Sign in" className="w-full mt-8" />
           </div>
 
+          <div className="flex justify-center mt-4">
+            <button
+              className="text-center text-[14px] bold"
+              onClick={setSignUpContext}
+            >
+              Don't have an account? <u>Click here</u>
+            </button>
+          </div>
+
           {hasError && (
             <div className="flex justify-center mt-4">
               <span className="text-center text-[20px] text-red-400 bold">
                 {hasError}
               </span>
+            </div>
+          )}
+
+          {hasManyErrors && (
+            <div className="flex flex-col justify-center mt-4">
+              {hasManyErrors.map((error, index) => {
+                return (
+                  <span
+                    key={index}
+                    className="text-left text-[13x] text-red-400 bold"
+                  >
+                    {error.msg}
+                  </span>
+                );
+              })}
             </div>
           )}
         </form>

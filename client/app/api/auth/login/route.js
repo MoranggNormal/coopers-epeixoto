@@ -28,7 +28,7 @@ export async function POST(request) {
 
   if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
     return NextResponse.json(
-      { message: data.msg },
+      { data },
       { status: HTTP_EXCEPTIONS.BAD_REQUEST.code }
     );
   }

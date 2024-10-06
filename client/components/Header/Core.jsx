@@ -10,10 +10,15 @@ import { useUser } from "@/app/userContext";
 import logo from "@/app/icons/logo.svg";
 import Register from "../Auth/Register/Core";
 
+const signInContext = "signin";
+const signUpContext = "signup";
+const defaultModalContext = signInContext;
+
 const Header = () => {
   const { user, logout } = useUser();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContext, setModalContext] = useState(defaultModalContext);
 
   const openModal = async () => {
     setIsModalOpen(true);
@@ -21,6 +26,14 @@ const Header = () => {
 
   const closeModal = async () => {
     setIsModalOpen(false);
+  };
+
+  const setSignUpContext = () => {
+    setModalContext(signUpContext);
+  };
+
+  const setSignInContext = () => {
+    setModalContext(signInContext);
   };
 
   return (
@@ -39,7 +52,9 @@ const Header = () => {
           <div>
             {user ? (
               <div className="flex items-center gap-8">
-                <p>Welcome, <u>{user.name}</u>!</p>
+                <p>
+                  Welcome, <u>{user.name}</u>!
+                </p>
                 <button
                   onClick={logout}
                   className="bg-black w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-down transition-all"
@@ -60,8 +75,13 @@ const Header = () => {
       </header>
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          {/* <Login closeModal={closeModal} /> */}
-          <Register closeModal={closeModal} />
+          {modalContext === signInContext && (
+            <Login
+              closeModal={closeModal}
+              setSignUpContext={setSignUpContext}
+            />
+          )}
+          {modalContext === "signup" && <Register closeModal={closeModal} setSignInContext={setSignInContext}/>}
         </Modal>
       )}
     </>

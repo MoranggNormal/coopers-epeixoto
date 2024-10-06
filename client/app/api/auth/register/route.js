@@ -29,7 +29,7 @@ export async function POST(request) {
 
   if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
     return NextResponse.json(
-      { message: data.msg },
+      { data },
       { status: HTTP_EXCEPTIONS.BAD_REQUEST.code }
     );
   }
@@ -42,7 +42,7 @@ export async function POST(request) {
     }
 
     const expiresAt = new Date(decodedToken.exp * 1000);
-    
+
     await createSession(data.token, expiresAt);
 
     return NextResponse.json(decodedToken.user);
