@@ -1,4 +1,4 @@
-const { getUserTasks, createTask } = require("../database/queries");
+const { getUserTasks, createTask, updateTaskTitle } = require("../database/queries");
 
 const getTasks = async (req, res) => {
   const { user } = req;
@@ -34,9 +34,26 @@ const setTask = async (req, res) => {
   }
 };
 
-const updateTask = (req, res) => {
-  res.status(200).json({ message: `Update Task ${req.params.id}` });
+const updateTask = async (req, res) => {
+  const {
+    user,
+    body: { id, title },
+  } = req;
+
+  if (!title) {
+    return res.status(400).json({ message: "No title was provided" });
+  }
+
+  try {
+
+    const updatedTask = await updateTaskTitle(id, user.id, title)
+
+    return res.status(200).json({ message: "Task updated successfully", updatedTask });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 };
+
 
 const deleteTask = (req, res) => {
   res.status(200).json({ message: `Delete Task ${req.params.id}` });

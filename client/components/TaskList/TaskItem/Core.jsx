@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, forwardRef } from "react";
+import { useUser } from "@/app/userContext";
 
 import elipse from "@/app/icons/elipse.svg";
 import checkedIcon from "@/app/icons/checked-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
 
 const TaskItem = forwardRef(({ id, description }, ref) => {
+  const { user } = useUser();
+
   const [text, setText] = useState(description);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -15,11 +18,29 @@ const TaskItem = forwardRef(({ id, description }, ref) => {
   const handleChange = (e) => {
     setText(() => e.target.value);
   };
+  const handleUpdateTask = async (id, title) => {
+    if (!user) {
+      return;
+    }
 
-  const handleBlur = (e) => {
-    console.log(e.target.value);
+    let bodyContent = JSON.stringify({
+      id,
+      title,
+    });
+
+    const response = await fetch(`/api/task/updateTaskTitle`, {
+      method: "PUT",
+      body: bodyContent,
+    });
+
+    await response.json();
   };
 
+  const handleKeyDown = ({ key, target }) => {
+    if (key === "Enter" && id && target.value !== "") {
+      handleUpdateTask(id, target.value);
+    }
+  };
   return (
     <div
       ref={ref}
@@ -39,15 +60,14 @@ const TaskItem = forwardRef(({ id, description }, ref) => {
       </button>
       <label htmlFor={taskId} className="sr-only">
         Task item
-      </label>{" "}
-      {/* Ensures a hidden but accessible label */}
+      </label>
       <input
         type="text"
         id={taskId}
         className="cursor-text"
         value={text}
         onChange={handleChange}
-        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
         aria-label="Task description"
       />
       <DeleteItem id={id} />

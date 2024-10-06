@@ -46,8 +46,22 @@ const createTask = async (userId, title = "test", description = "") => {
   }
 };
 
+const updateTaskTitle = async (id, userId, title) => {
+  const task = await Task.findOne({ where: { id, userId } });
+
+  if (!task) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+
+  task.title = title;
+  await task.save();
+
+  return task
+};
+
 module.exports = {
   registerUser,
   getUserTasks,
   createTask,
+  updateTaskTitle
 };
