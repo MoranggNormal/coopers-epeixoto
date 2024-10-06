@@ -1,18 +1,36 @@
 "use client";
 import { useState } from "react";
+import { useUser } from "@/app/userContext";
 
 import elipse from "@/app/icons/elipse.svg";
+import AuthModal from "@/components/Auth/AuthModal/Core";
 
-export const DEFAULT_TASK_ITEM_TEXT = "Editing an item...";
+const DEFAULT_TASK_ITEM_TEXT = "Editing an item...";
 
 const CreateTaskItem = () => {
+  const { user } = useUser();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [text, setText] = useState("");
+
+  const openModal = async () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = async () => {
+    setIsModalOpen(false);
+  };
 
   const handleChange = ({ target }) => {
     setText(() => target.value);
   };
 
   const handleCreateTask = async (task) => {
+    if (!user) {
+      openModal();
+      return;
+    }
+
     let bodyContent = JSON.stringify({
       task,
     });
@@ -34,28 +52,32 @@ const CreateTaskItem = () => {
   };
 
   return (
-    <button
-      className="relative w-full group flex gap-4 py-2 text-[16px] transition-all text-secondary"
-      aria-label={"Start typing to create a new task"}
-    >
-      <img
-        className="w-[20px] h-[20px]"
-        src={elipse.src}
-        alt="Create a new task"
-      ></img>
-      <label htmlFor="create-task-item" className="sr-only">
-        {text}
-      </label>
-      <input
-        type="text"
-        id="create-task-item"
-        className="cursor-text"
-        placeholder={DEFAULT_TASK_ITEM_TEXT}
-        value={text}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-    </button>
+    <>
+      <button
+        className="relative w-full group flex gap-4 py-2 text-[16px] transition-all text-secondary"
+        aria-label={"Start typing to create a new task"}
+      >
+        <img
+          className="w-[20px] h-[20px]"
+          src={elipse.src}
+          alt="Create a new task"
+        ></img>
+        <label htmlFor="create-task-item" className="sr-only">
+          {text}
+        </label>
+        <input
+          type="text"
+          id="create-task-item"
+          className="cursor-text"
+          placeholder={DEFAULT_TASK_ITEM_TEXT}
+          value={text}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+      </button>
+
+      <AuthModal isModalOpen={isModalOpen} closeModal={closeModal} />
+    </>
   );
 };
 

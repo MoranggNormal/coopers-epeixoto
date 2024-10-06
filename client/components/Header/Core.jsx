@@ -1,24 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import Modal from "../Modal/core";
-import Login from "../Auth/Login/Core";
-
 import { useUser } from "@/app/userContext";
 
-import logo from "@/app/icons/logo.svg";
-import Register from "../Auth/Register/Core";
+import Image from "next/image";
 
-const signInContext = "signin";
-const signUpContext = "signup";
-const defaultModalContext = signInContext;
+import logo from "@/app/icons/logo.svg";
+import AuthModal from "../Auth/AuthModal/Core";
 
 const Header = () => {
   const { user, logout } = useUser();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContext, setModalContext] = useState(defaultModalContext);
 
   const openModal = async () => {
     setIsModalOpen(true);
@@ -26,14 +19,6 @@ const Header = () => {
 
   const closeModal = async () => {
     setIsModalOpen(false);
-  };
-
-  const setSignUpContext = () => {
-    setModalContext(signUpContext);
-  };
-
-  const setSignInContext = () => {
-    setModalContext(signInContext);
   };
 
   return (
@@ -73,17 +58,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {isModalOpen && (
-        <Modal closeModal={closeModal}>
-          {modalContext === signInContext && (
-            <Login
-              closeModal={closeModal}
-              setSignUpContext={setSignUpContext}
-            />
-          )}
-          {modalContext === "signup" && <Register closeModal={closeModal} setSignInContext={setSignInContext}/>}
-        </Modal>
-      )}
+      <AuthModal isModalOpen={isModalOpen} closeModal={closeModal} />
     </>
   );
 };
