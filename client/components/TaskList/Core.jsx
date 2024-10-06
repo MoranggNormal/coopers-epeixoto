@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useUser } from "@/app/userContext";
 
 import CreateTaskItem from "./CreateTaskItem/Core";
@@ -20,8 +20,21 @@ const TaskList = () => {
   const [pendingTasks, setPendingTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
 
+  const taskListRef = useRef(null);
+  const lastTaskRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (taskListRef.current) {
+      taskListRef.current.scrollTo({
+        top: taskListRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const addNewPendingTask = (newTask) => {
     setPendingTasks((prevTasks) => [...prevTasks, newTask]);
+    scrollToBottom();
   };
 
   useEffect(() => {
@@ -55,10 +68,15 @@ const TaskList = () => {
             Take a breath. <br /> Start doing.
           </p>
         </div>
-        <div className="mx-8 max-h-[280px] overflow-y-auto">
+        <div ref={taskListRef} className="mx-8 max-h-[280px] overflow-y-auto">
           {pendingTasks.length > 0 &&
             pendingTasks.map(({ id, title }) => (
-              <TaskItem key={id} id={id} description={title} />
+              <TaskItem
+                key={id}
+                ref={id === pendingTasks.length ? lastTaskRef : null}
+                id={id}
+                description={title}
+              />
             ))}
         </div>
         <div className="mx-8">

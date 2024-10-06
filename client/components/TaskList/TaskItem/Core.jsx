@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
 import elipse from "@/app/icons/elipse.svg";
 import checkedIcon from "@/app/icons/checked-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
 
-const TaskItem = ({ id, description }) => {
+const TaskItem = forwardRef(({ id, description }, ref) => {
   const [text, setText] = useState(description);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -21,7 +21,10 @@ const TaskItem = ({ id, description }) => {
   };
 
   return (
-    <div className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-default">
+    <div
+      ref={ref}
+      className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-default"
+    >
       <button
         className="w-[20px] h-[20px] cursor-pointer"
         onClick={() => setIsChecked((prev) => !prev)}
@@ -50,6 +53,6 @@ const TaskItem = ({ id, description }) => {
       <DeleteItem id={id} />
     </div>
   );
-};
+});
 
 export default TaskItem;
