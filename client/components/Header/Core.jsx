@@ -3,19 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import Modal from "../Modal/core";
+import Login from "../Auth/Login/Core";
 
 import { useUser } from "@/app/userContext";
 
-import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
-
 import logo from "@/app/icons/logo.svg";
-import Login from "../Auth/Login/Core";
 
 const Header = () => {
-  const { user, login, logout } = useUser();
+  const { user, logout } = useUser();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasError, setHasError] = useState("");
 
   const openModal = async () => {
     setIsModalOpen(true);
@@ -23,36 +20,6 @@ const Header = () => {
 
   const closeModal = async () => {
     setIsModalOpen(false);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (hasError) {
-      setHasError(() => "");
-    }
-
-    const formData = new FormData(e.target);
-    const email = formData.get("user-email");
-    const password = formData.get("user-password");
-
-    const response = await fetch(`/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json();
-
-    if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
-      setHasError(() => data.message);
-      return;
-    }
-
-    login(data);
-    closeModal();
   };
 
   return (
@@ -92,7 +59,7 @@ const Header = () => {
       </header>
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          <Login handleSubmit={handleSubmit} hasError={hasError} />
+          <Login closeModal={closeModal} />
         </Modal>
       )}
     </>
