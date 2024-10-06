@@ -1,9 +1,16 @@
+const express = require("express");
 
-const express = require('express');
-const port = 4001;
+const { APP_PORT } = require("./constants/constants");
+
+require('dotenv').config();
 
 const app = express();
 
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use("/api/task", require("./routes/taskRoutes"));
+
+app.listen(APP_PORT, () => {
+  console.log(`Server started on port ${APP_PORT}`);
 });
