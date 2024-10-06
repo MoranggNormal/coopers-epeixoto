@@ -2,22 +2,34 @@
 import { useState } from "react";
 
 import elipse from "@/app/icons/elipse.svg";
-import { DEFAULT_TASK_ITEM_TEXT } from "@/constants/task-items";
+
+export const DEFAULT_TASK_ITEM_TEXT = "Editing an item...";
 
 const CreateTaskItem = () => {
-  const [text, setText] = useState(DEFAULT_TASK_ITEM_TEXT);
+  const [text, setText] = useState("");
 
   const handleChange = ({ target }) => {
     setText(() => target.value);
   };
 
-  const handleCreateItem = (e) => {
-    setText(() => DEFAULT_TASK_ITEM_TEXT);
+  const handleCreateTask = async (task) => {
+    let bodyContent = JSON.stringify({
+      task,
+    });
+
+    const response = await fetch(`/api/task/createTask`, {
+      method: "POST",
+      body: bodyContent,
+    });
+
+    const newTask = await response.json();
+
+    setText(() => "");
   };
 
   const handleKeyDown = ({ key, target }) => {
     if (key === "Enter") {
-      handleCreateItem(target);
+      handleCreateTask(target.value);
     }
   };
 
@@ -33,15 +45,15 @@ const CreateTaskItem = () => {
       ></img>
       <label htmlFor="create-task-item" className="sr-only">
         {text}
-      </label>{" "}
+      </label>
       <input
         type="text"
         id="create-task-item"
         className="cursor-text"
+        placeholder={DEFAULT_TASK_ITEM_TEXT}
         value={text}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        onBlur={handleCreateItem}
       />
     </button>
   );
