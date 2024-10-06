@@ -1,17 +1,34 @@
-const getTasks = async (_req, res) => {
+const { getUserTasks, createTask } = require("../database/queries");
+
+const getTasks = async (req, res) => {
+  const { user } = req;
+
   try {
-    res.status(200).json({ message: "Get tasks", users });
+    const userTasks = await getUserTasks(user.id);
+
+    return res.status(200).json({ tasks: userTasks });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching users" });
+    return res.status(500).json({ message: "Error fetching tasks" });
   }
 };
 
-const setTask = (req, res) => {
-  if (!req.body.task) {
-    res.status(400).json({ message: "No Task was provided" });
+const setTask = async (req, res) => {
+  const {
+    user,
+    body: { task },
+  } = req;
+
+  if (!task) {
+    return res.status(400).json({ message: "No Task was provided" });
   }
 
-  res.status(200).json({ message: "Set Task" });
+  try {
+    const newTask = await createTask(user.id, task);
+
+    return res.status(201).json({ newTask });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 const updateTask = (req, res) => {

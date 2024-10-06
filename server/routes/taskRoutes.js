@@ -7,9 +7,11 @@ const {
   deleteTask,
 } = require("../controllers/taskController");
 
+const authenticateJWT = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
-router.route("/").get(getTasks).post(setTask);
-router.route("/:id").put(updateTask).delete(deleteTask);
+router.route("/").get(authenticateJWT, getTasks).post(authenticateJWT, setTask);
+router.route("/:id").put(authenticateJWT, updateTask).delete(authenticateJWT, deleteTask);
 
 module.exports = router;
