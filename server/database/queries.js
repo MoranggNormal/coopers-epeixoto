@@ -1,14 +1,22 @@
-const { client } = require("./database");
+const { sequelize } = require("./database");
+const User = require("../models/userModel");
 
-const getUsers = async () => {
+const registerUser = async (name, email, password) => {
   try {
-    const results = await client.query("SELECT * FROM users");
-    return results.rows;
+    await sequelize.authenticate();
+
+    const user = await User.create({
+      name: name,
+      email,
+      password,
+    });
+
+    return user;
   } catch (error) {
-    throw error;
+    console.error("Unable to connect to the database:", error);
   }
 };
 
 module.exports = {
-  getUsers,
+  registerUser,
 };

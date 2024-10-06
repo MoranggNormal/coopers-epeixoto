@@ -1,8 +1,5 @@
-const { getUsers } = require("../database/queries");
-
 const getTasks = async (_req, res) => {
   try {
-    const users = await getUsers();
     res.status(200).json({ message: "Get tasks", users });
   } catch (error) {
     res.status(500).json({ message: "Error fetching users" });
