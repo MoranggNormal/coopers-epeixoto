@@ -15,6 +15,20 @@ services:
       - coopers-epeixoto
     restart: "on-failure"
 
+  server:
+    build:
+      context: ./server
+      target: dev
+      dockerfile: Dockerfile
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    ports:
+      - "4001:4001"
+    networks:
+      - coopers-epeixoto
+    restart: "on-failure"
+
   nginx:
     build: ./nginx
     ports:
