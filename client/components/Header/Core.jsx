@@ -8,6 +8,7 @@ import Login from "../Auth/Login/Core";
 import { useUser } from "@/app/userContext";
 
 import logo from "@/app/icons/logo.svg";
+import Register from "../Auth/Register/Core";
 
 const Header = () => {
   const { user, logout } = useUser();
@@ -37,13 +38,13 @@ const Header = () => {
           </div>
           <div>
             {user ? (
-              <div>
-                <h1>Welcome, {user.name}!</h1>
+              <div className="flex items-center gap-8">
+                <p>Welcome, <u>{user.name}</u>!</p>
                 <button
                   onClick={logout}
                   className="bg-black w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-down transition-all"
                 >
-                  Logout
+                  Sign out
                 </button>
               </div>
             ) : (
@@ -59,7 +60,8 @@ const Header = () => {
       </header>
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          <Login closeModal={closeModal} />
+          {/* <Login closeModal={closeModal} /> */}
+          <Register closeModal={closeModal} />
         </Modal>
       )}
     </>
