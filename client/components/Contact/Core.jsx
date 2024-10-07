@@ -1,11 +1,69 @@
+"use client";
+import { useState } from "react";
+
 import InputField from "../InputField/Core";
 import SubmitButton from "../SubmitButton/Core";
 
 import woman from "@/static/images/woman.png";
 import graphism from "@/static/images/graphism-2.svg";
 import iconMail from "@/app/icons/icon-mail.svg";
+import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
 
 const Contact = () => {
+  const [isSendingMail, setIsSendingMail] = useState(false);
+  const [mailSent, setMailSent] = useState(false);
+  const [hasError, setHasError] = useState("");
+  const [hasManyErrors, setHasManyErrors] = useState([]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (hasError) {
+      setHasError(() => "");
+    }
+
+    if (hasManyErrors) {
+      setHasManyErrors(() => []);
+    }
+
+    setIsSendingMail(true);
+
+    const formData = new FormData(e.target);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+    const message = formData.get("message");
+
+    const response = await fetch(`/api/sendMail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, phone, message }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
+      setIsSendingMail(false);
+
+      const {
+        data: { errors, msg },
+      } = data;
+
+      if (errors) {
+        setHasManyErrors(errors);
+        return;
+      }
+
+      setHasError(() => msg);
+      return;
+    }
+
+    setMailSent(true);
+    setIsSendingMail(false);
+  };
+
   return (
     <section className="relative w-full min-h-[820px] my-20 flex flex-col items-center">
       <div className="absolute -top-[135px] lg:-top-[95px] w-[190px] h-[190px] rounded">
@@ -27,7 +85,11 @@ const Contact = () => {
           </h3>
         </div>
 
-        <form className="flex flex-col gap-6" aria-label="Contact form">
+        <form
+          className="flex flex-col gap-6"
+          aria-label="Contact form"
+          onSubmit={handleSubmit}
+        >
           <InputField
             id="name"
             label="Your name"
@@ -59,8 +121,39 @@ const Contact = () => {
               className="w-full min-h-[150px] ring-[1px] ring-[#06152B] placeholder-[#9A9A9A] focus:outline-none hover:border-primary focus:border-primary focus:ring-1 focus:ring-primary rounded-[4px] px-4 py-2"
             />
           </label>
-          <SubmitButton text="SEND NOW" />
+          <SubmitButton text={isSendingMail ? "SENDING..." : "SEND NOW"} disabled={isSendingMail} />
         </form>
+
+        {mailSent && (
+          <div className="flex justify-center mt-4">
+            <span className="text-center text-[20px] text-green-400 bold">
+              Mail has been sent! Please, check your inbox.
+            </span>
+          </div>
+        )}
+
+        {hasError && (
+          <div className="flex justify-center mt-4">
+            <span className="text-center text-[20px] text-red-400 bold">
+              {hasError}
+            </span>
+          </div>
+        )}
+
+        {hasManyErrors && (
+          <div className="flex flex-col justify-center mt-4">
+            {hasManyErrors.map((error, index) => {
+              return (
+                <span
+                  key={index}
+                  className="text-left text-[13x] text-red-400 bold"
+                >
+                  {error.msg}
+                </span>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
