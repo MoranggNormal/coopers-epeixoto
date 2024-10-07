@@ -14,6 +14,17 @@ const registerUser = async (name, email, password) => {
   }
 };
 
+const findUser = async (email) => {
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    return user;
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+
 module.exports = {
   registerUser,
+  findUser,
 };

@@ -1,13 +1,12 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const User = require("../models/userModel");
-const { registerUser } = require("../database/queries/users");
+const { registerUser, findUser } = require("../database/queries/users");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    let user = await User.findOne({ where: { email } });
+    const user = await findUser(email);
 
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
@@ -42,7 +41,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ where: { email } });
+    const user = await findUser(email);
 
     if (!user) {
       return res.status(400).json({ msg: "Invalid credentials" });
