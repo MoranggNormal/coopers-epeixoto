@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useFormErrors from "@/hooks/useFormErrors";
 import { useUser } from "@/app/userContext";
@@ -13,6 +14,8 @@ const Register = ({ closeModal, setSignInContext }) => {
   const { login } = useUser();
   const { refresh } = useRouter();
 
+  const [isRegistering, setIsRegistering] = useState(false);
+
   const { errorMessage, errorsMessages, setError, setMultipleErrors, resetErrors } =
     useFormErrors();
 
@@ -20,6 +23,8 @@ const Register = ({ closeModal, setSignInContext }) => {
     e.preventDefault();
 
     resetErrors();
+
+    setIsRegistering(true);
 
     const formData = new FormData(e.target);
     const name = formData.get("user-name");
@@ -41,6 +46,9 @@ const Register = ({ closeModal, setSignInContext }) => {
         data: { errors, msg },
       } = data;
 
+    setIsRegistering(false);
+
+
       if (errors) {
         setMultipleErrors(errors);
         return;
@@ -52,6 +60,7 @@ const Register = ({ closeModal, setSignInContext }) => {
 
     login(data);
     setSignInContext();
+    setIsRegistering(false);
     closeModal();
     refresh();
   };
@@ -82,7 +91,11 @@ const Register = ({ closeModal, setSignInContext }) => {
             required
           />
           <div>
-            <SubmitButton text="Register now" className="w-full mt-8" />
+            <SubmitButton
+            text={isRegistering ? "Creating account..." : "Register now"}
+            className="w-full mt-8"
+            disabled={isRegistering}
+          />
           </div>
 
           <div className="flex justify-center mt-4">

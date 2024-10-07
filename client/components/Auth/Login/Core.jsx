@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/userContext";
 import InputField from "@/components/InputField/Core";
@@ -13,6 +14,8 @@ const Login = ({ closeModal, setSignUpContext }) => {
   const { login } = useUser();
   const { refresh } = useRouter();
 
+  const [isSigningIn, setIsSigningIn] = useState(false);
+
   const { errorMessage, errorsMessages, setError, setMultipleErrors, resetErrors } =
     useFormErrors();
 
@@ -20,6 +23,8 @@ const Login = ({ closeModal, setSignUpContext }) => {
     e.preventDefault();
 
     resetErrors();
+
+    setIsSigningIn(true);
 
     const formData = new FormData(e.target);
     const email = formData.get("user-email");
@@ -39,6 +44,8 @@ const Login = ({ closeModal, setSignUpContext }) => {
       const {
         data: { errors, msg },
       } = data;
+      
+      setIsSigningIn(false);
 
       if (errors) {
         setMultipleErrors(errors);
@@ -50,6 +57,7 @@ const Login = ({ closeModal, setSignUpContext }) => {
     }
 
     login(data);
+    setIsSigningIn(false);
     closeModal();
     refresh();
   };
@@ -76,7 +84,11 @@ const Login = ({ closeModal, setSignUpContext }) => {
             required
           />
           <div>
-            <SubmitButton text="Sign in" className="w-full mt-8" />
+            <SubmitButton
+            text={isSigningIn ? "Signing In..." : "Sign in"}
+            className="w-full mt-8"
+            disabled={isSigningIn}
+          />
           </div>
 
           <div className="flex justify-center mt-4">
