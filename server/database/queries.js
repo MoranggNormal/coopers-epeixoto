@@ -24,6 +24,7 @@ const getUserTasks = async (userId) => {
       where: {
         userId,
       },
+      order: [["order", "ASC"]],
     });
 
     return userTasks;
@@ -32,12 +33,20 @@ const getUserTasks = async (userId) => {
   }
 };
 
-const createTask = async (userId, title = "test", description = "") => {
+const createTask = async (userId, title, description = "") => {
   try {
+    const maxOrderTask = await Task.findOne({
+      where: { completed: false },
+      order: [["order", "DESC"]],
+    });
+
+    const newOrder = maxOrderTask ? maxOrderTask.order + 1 : 0;
+
     const newTask = await Task.create({
       title,
       description,
       userId,
+      order: newOrder,
     });
 
     return newTask;
@@ -46,7 +55,7 @@ const createTask = async (userId, title = "test", description = "") => {
   }
 };
 
-const updateTaskTitle = async (id, userId, title) => {
+const onUpdateTaskTitle = async (id, userId, title) => {
   const task = await Task.findOne({ where: { id, userId } });
 
   if (!task) {
@@ -56,12 +65,32 @@ const updateTaskTitle = async (id, userId, title) => {
   task.title = title;
   await task.save();
 
-  return task
+  return task;
+};
+
+const onUpdateTaskOrder = async (tasksToUpdate) => {
+  try {
+    await sequelize.transaction(async (transaction) => {
+      for (const task of tasksToUpdate) {
+        await Task.update(
+          { order: task.order },
+          {
+            where: { id: task.id },
+            transaction,
+          }
+        );
+      }
+    });
+
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
   registerUser,
   getUserTasks,
   createTask,
-  updateTaskTitle
+  onUpdateTaskTitle,
+  onUpdateTaskOrder
 };

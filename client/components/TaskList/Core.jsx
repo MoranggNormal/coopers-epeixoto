@@ -12,6 +12,8 @@ import { ERASE_ITEMS } from "@/constants/task-items";
 
 import graphism from "@/static/images/graphism.svg";
 
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+
 const CARD_LIST_CLASSES =
   "w-[320px] md:w-[380px] min-h-[600px] border-t-[20px] shadow-lg bg-background";
 
@@ -21,7 +23,6 @@ const TaskList = () => {
   const [completedTasks, setCompletedTasks] = useState([]);
 
   const taskListRef = useRef(null);
-  const lastTaskRef = useRef(null);
 
   const scrollToBottom = () => {
     if (taskListRef.current) {
@@ -35,6 +36,42 @@ const TaskList = () => {
   const addNewPendingTask = (newTask) => {
     setPendingTasks((prevTasks) => [...prevTasks, newTask]);
     scrollToBottom();
+  };
+
+  const reorderTasks = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+  
+    result.forEach((task, index) => {
+      task.order = index;
+    });
+
+    return result;
+  };
+
+  const onDragEnd = async (result) => {
+    const { destination, source } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    const reorderedTasks = reorderTasks(pendingTasks, source.index, destination.index);
+    setPendingTasks(reorderedTasks);
+
+    const tasksToUpdate = reorderedTasks.filter((task, index) => task.order !== pendingTasks[index].order);
+    const tasksToSend = tasksToUpdate.map(({ id, order }) => ({ id, order }));
+
+    if (tasksToSend.length > 0) {
+      await fetch('/api/task/updateTaskOrder', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tasks: tasksToSend }),
+      });
+    }
   };
 
   useEffect(() => {
@@ -68,17 +105,35 @@ const TaskList = () => {
             Take a breath. <br /> Start doing.
           </p>
         </div>
-        <div ref={taskListRef} className="mx-8 max-h-[280px] overflow-y-auto">
-          {pendingTasks.length > 0 &&
-            pendingTasks.map(({ id, title }) => (
-              <TaskItem
-                key={id}
-                ref={id === pendingTasks.length ? lastTaskRef : null}
-                id={id}
-                description={title}
-              />
-            ))}
-        </div>
+
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="pendingTasks">
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="mx-8 max-h-[280px] overflow-y-auto"
+              >
+                {pendingTasks.length > 0 &&
+                  pendingTasks.map(({ id, title }, index) => (
+                    <Draggable key={id} draggableId={id.toString()} index={index}>
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <TaskItem id={id} description={title} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+
         <div className="mx-8">
           <CreateTaskItem addNewPendingTask={addNewPendingTask} />
           <EraseItems context={ERASE_ITEMS.PENDING} />

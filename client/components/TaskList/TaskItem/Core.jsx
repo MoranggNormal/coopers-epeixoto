@@ -44,7 +44,7 @@ const TaskItem = forwardRef(({ id, description }, ref) => {
   return (
     <div
       ref={ref}
-      className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-default"
+      className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-grab"
     >
       <button
         className="w-[20px] h-[20px] cursor-pointer"
