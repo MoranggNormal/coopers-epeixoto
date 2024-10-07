@@ -38,11 +38,15 @@ const TaskList = () => {
     scrollToBottom();
   };
 
+  const removeTask = (id) => {
+    setPendingTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
+
   const reorderTasks = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-  
+
     result.forEach((task, index) => {
       task.order = index;
     });
@@ -57,17 +61,23 @@ const TaskList = () => {
       return;
     }
 
-    const reorderedTasks = reorderTasks(pendingTasks, source.index, destination.index);
+    const reorderedTasks = reorderTasks(
+      pendingTasks,
+      source.index,
+      destination.index
+    );
     setPendingTasks(reorderedTasks);
 
-    const tasksToUpdate = reorderedTasks.filter((task, index) => task.order !== pendingTasks[index].order);
+    const tasksToUpdate = reorderedTasks.filter(
+      (task, index) => task.order !== pendingTasks[index].order
+    );
     const tasksToSend = tasksToUpdate.map(({ id, order }) => ({ id, order }));
 
     if (tasksToSend.length > 0) {
-      await fetch('/api/task/updateTaskOrder', {
-        method: 'PUT',
+      await fetch("/api/task/updateTaskOrder", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ tasks: tasksToSend }),
       });
@@ -87,6 +97,8 @@ const TaskList = () => {
         });
 
         const { pending, completed } = await response.json();
+
+        console.log(pending);
 
         setPendingTasks(pending);
         setCompletedTasks(completed);
@@ -116,14 +128,18 @@ const TaskList = () => {
               >
                 {pendingTasks.length > 0 &&
                   pendingTasks.map(({ id, title }, index) => (
-                    <Draggable key={id} draggableId={id.toString()} index={index}>
+                    <Draggable
+                      key={id}
+                      draggableId={id.toString()}
+                      index={index}
+                    >
                       {(provided) => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <TaskItem id={id} description={title} />
+                          <TaskItem id={id} title={title} removeTask={removeTask} />
                         </div>
                       )}
                     </Draggable>

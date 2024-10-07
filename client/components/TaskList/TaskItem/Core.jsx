@@ -7,10 +7,10 @@ import elipse from "@/app/icons/elipse.svg";
 import checkedIcon from "@/app/icons/checked-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
 
-const TaskItem = forwardRef(({ id, description }, ref) => {
+const TaskItem = forwardRef(({ id, title, removeTask }, ref) => {
   const { user } = useUser();
 
-  const [text, setText] = useState(description);
+  const [text, setText] = useState(title);
   const [isChecked, setIsChecked] = useState(false);
 
   const taskId = `task-${id}`;
@@ -18,6 +18,7 @@ const TaskItem = forwardRef(({ id, description }, ref) => {
   const handleChange = (e) => {
     setText(() => e.target.value);
   };
+
   const handleUpdateTask = async (id, title) => {
     if (!user) {
       return;
@@ -70,7 +71,7 @@ const TaskItem = forwardRef(({ id, description }, ref) => {
         onKeyDown={handleKeyDown}
         aria-label="Task description"
       />
-      <DeleteItem id={id} />
+      <DeleteItem id={id} removeTask={removeTask} />
     </div>
   );
 });
