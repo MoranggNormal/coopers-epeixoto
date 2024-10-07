@@ -6,7 +6,7 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    const user = await findUser(email);
+    let user = await findUser(email);
 
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
