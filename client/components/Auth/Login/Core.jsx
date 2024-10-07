@@ -57,7 +57,7 @@ const Login = ({ closeModal, setSignUpContext }) => {
   return (
     <div className="p-20 items-center">
       <div className="flex gap-8 items-center">
-        <img src={signIn.src} alt="Woman pointing top-right" />
+        <img src={signIn.src} alt="Woman pointing top-right" className="hidden lg:block" />
         <span>
           <p className="text-[70px]">
             <b>Sign In</b>
@@ -67,7 +67,7 @@ const Login = ({ closeModal, setSignUpContext }) => {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <form action="POST" className="w-1/3 space-y-4" onSubmit={handleSubmit}>
+        <form action="POST" className="lg:w-1/3 space-y-4" onSubmit={handleSubmit}>
           <InputField id="user-email" label="Email:" type="email" required />
           <InputField
             id="user-password"
