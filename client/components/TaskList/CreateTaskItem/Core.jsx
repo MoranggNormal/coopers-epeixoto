@@ -26,6 +26,10 @@ const CreateTaskItem = ({ addNewPendingTask }) => {
   };
 
   const handleCreateTask = async (task) => {
+    if (!task) {
+      return;
+    }
+
     if (!user) {
       openModal();
       return;
