@@ -92,7 +92,7 @@ const Contact = () => {
             label="Your name"
             placeholder="Type your name here..."
           />
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               id="email"
               label="Email*"
