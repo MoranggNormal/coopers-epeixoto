@@ -60,14 +60,14 @@ const onUpdateTaskTitle = async (id, userId, title) => {
   return task;
 };
 
-const onUpdateTaskOrder = async (tasksToUpdate) => {
+const onUpdateTaskOrder = async (tasksToUpdate, userId) => {
   try {
     await sequelize.transaction(async (transaction) => {
       for (const task of tasksToUpdate) {
         await Task.update(
           { order: task.order },
           {
-            where: { id: task.id },
+            where: { id: task.id, userId },
             transaction,
           }
         );

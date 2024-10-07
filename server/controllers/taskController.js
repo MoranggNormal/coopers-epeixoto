@@ -71,7 +71,7 @@ const updateTaskOrder = async (req, res) => {
   }
 
   try {
-    await onUpdateTaskOrder(tasks);
+    await onUpdateTaskOrder(tasks, user.id);
 
     return res.status(200).json({ message: "Task Order updated successfully" });
   } catch (error) {
