@@ -28,7 +28,7 @@ const EraseItems = ({ context, erasePending, eraseCompleted }) => {
       onClick={() => requestEraseItems()}
       className="w-[260px] md:w-[300px] h-[64px] bg-black text-white font-bold text-[24px] rounded-[10px] my-10 hover-up transition-all"
     >
-      Erase All
+      erase all
     </button>
   );
 };

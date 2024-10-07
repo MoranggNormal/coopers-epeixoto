@@ -42,7 +42,7 @@ const Header = () => {
                 </p>
                 <button
                   onClick={logout}
-                  className="bg-black w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-down transition-all"
+                  className="bg-black font-poppins w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-down transition-all"
                 >
                   Sign out
                 </button>
@@ -50,10 +50,11 @@ const Header = () => {
             ) : (
               <button
                 onClick={openModal}
-                className="bg-black w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-up transition-all"
+                className="bg-black font-poppins w-[80px] h-[40px] md:w-[120px] md:h-[40px] text-[14px] leading-[21px] font-bold text-white cursor-pointer hover-up transition-all"
               >
                 Sign in
               </button>
+              
             )}
           </div>
         </div>

@@ -6,7 +6,7 @@ const ToDoInfo = () => {
     >
       <div className="absolute w-[200%] h-[75%] bg-black -rotate-4 -z-20" />
       <div>
-        <h1 className="font-bold text-white text-[60px] leading-[60px] text-center underline underline-offset-[16px] decoration-2 decoration-primary">
+        <h1 className="font-bold font-poppins text-white text-[60px] leading-[60px] text-center underline underline-offset-[16px] decoration-2 decoration-primary">
           To-do List
         </h1>
         <p className="mt-8 font-normal text-white text-[24px] leading-[29px] text-center">

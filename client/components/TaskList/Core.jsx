@@ -129,7 +129,7 @@ const TaskList = () => {
     <section className="relative my-24 w-full flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8">
       <div className={CARD_LIST_CLASSES + " border-t-secondary"}>
         <div className="flex flex-col py-4 items-center">
-          <p className="font-bold text-[40px]">To-do</p>
+          <p className="font-bold text-[40px] font-poppins">To-do</p>
           <p className="text-[24px] text-center">
             Take a breath. <br /> Start doing.
           </p>
@@ -184,7 +184,7 @@ const TaskList = () => {
 
       <div className={CARD_LIST_CLASSES + " border-t-primary"}>
         <div className="flex flex-col py-4 items-center">
-          <p className="font-bold text-[40px]">Done</p>
+          <p className="font-bold text-[40px] font-poppins">Done</p>
           {completedTasks.length > 0 ? (
             <p className="text-[24px] text-center">
               Congratulations! <br />{" "}
