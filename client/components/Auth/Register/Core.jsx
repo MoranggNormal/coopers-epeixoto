@@ -3,7 +3,7 @@ import useFormErrors from "@/hooks/useFormErrors";
 import { useUser } from "@/app/userContext";
 import InputField from "@/components/InputField/Core";
 import SubmitButton from "@/components/SubmitButton/Core";
-import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
+import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
 
 import signIn from "@/static/images/signin.png";
 import ErrorMessage from "@/components/FormErrors/ErrorMessage/Core";

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 import { API_URL } from "@/constants/api";
-import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
+import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
 import { JWT_SECRET } from "@/constants/secrets";
 
 export async function POST(request) {

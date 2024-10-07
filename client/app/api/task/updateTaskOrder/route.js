@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 import { API_URL } from "@/constants/api";
-import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
+import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
 
 export async function PUT(request) {
   const { tasks } = await request.json();

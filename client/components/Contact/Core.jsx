@@ -7,7 +7,7 @@ import SubmitButton from "../SubmitButton/Core";
 import woman from "@/static/images/woman.png";
 import graphism from "@/static/images/graphism-2.svg";
 import iconMail from "@/app/icons/icon-mail.svg";
-import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
+import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
 import useFormErrors from "@/hooks/useFormErrors";
 import ErrorMessage from "../FormErrors/ErrorMessage/Core";
 import ManyErrorsMessage from "../FormErrors/ManyErrorsMessage/Core";
