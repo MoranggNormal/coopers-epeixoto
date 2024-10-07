@@ -21,6 +21,11 @@ module.exports = {
       screens: {
         "3xl": "2560px",
       },
+      fontFamily: {
+        montSerrat: ['var(--font-montSerrat)'],
+        poppins: ['var(--font-poppins)'],
+        mono: ['var(--font-roboto-mono)'],
+      },
     },
   },
   plugins: [
