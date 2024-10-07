@@ -53,6 +53,14 @@ const TaskList = () => {
     ]);
   };
 
+  const erasePending = () => {
+    setPendingTasks([]);
+  };
+
+  const eraseCompleted = () => {
+    setCompletedTasks([]);
+  };
+
   const reorderTasks = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -108,8 +116,6 @@ const TaskList = () => {
         });
 
         const { pending, completed } = await response.json();
-
-        console.log(pending);
 
         setPendingTasks(pending);
         setCompletedTasks(completed);
@@ -168,7 +174,11 @@ const TaskList = () => {
 
         <div className="mx-8">
           <CreateTaskItem addNewPendingTask={addNewPendingTask} />
-          <EraseItems context={ERASE_ITEMS.PENDING} />
+          <EraseItems
+            context={ERASE_ITEMS.PENDING}
+            erasePending={erasePending}
+            eraseCompleted={eraseCompleted}
+          />
         </div>
       </div>
 
@@ -207,7 +217,11 @@ const TaskList = () => {
         </div>
         {completedTasks.length > 0 && (
           <div className="mx-8">
-            <EraseItems context={ERASE_ITEMS.DONE} />
+            <EraseItems
+              context={ERASE_ITEMS.DONE}
+              erasePending={erasePending}
+              eraseCompleted={eraseCompleted}
+            />
           </div>
         )}
       </div>

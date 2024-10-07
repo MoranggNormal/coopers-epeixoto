@@ -1,14 +1,23 @@
 "use client";
 import { ERASE_ITEMS } from "@/constants/task-items";
 
-const EraseItems = ({ context }) => {
-  const requestEraseItems = () => {
+const EraseItems = ({ context, erasePending, eraseCompleted }) => {
+  const requestEraseItems = async () => {
     switch (context) {
       case ERASE_ITEMS.PENDING:
-        console.log(ERASE_ITEMS.PENDING);
+        await fetch("/api/task/erasePendingTasks", {
+          method: "DELETE",
+        });
+
+        erasePending()
         break;
       case ERASE_ITEMS.DONE:
-        console.log(ERASE_ITEMS.DONE);
+        await fetch("/api/task/eraseCompleteTasks", {
+          method: "DELETE",
+        });
+
+        eraseCompleted()
+        break;
       default:
         break;
     }

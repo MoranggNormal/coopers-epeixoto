@@ -75,6 +75,54 @@ const onDeleteTask = async (id, userId) => {
   return task;
 };
 
+const onEraseCompleteTasks = async (userId) => {
+  const tasks = await Task.findAll({ where: { userId, completed: true } });
+
+  if (tasks.length !== 0) {
+    try {
+      await sequelize.transaction(async (transaction) => {
+        for (const task of tasks) {
+          await Task.update(
+            { isActive: false },
+            {
+              where: { id: task.id, userId },
+              transaction,
+            }
+          );
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  return;
+};
+
+const onErasePendingTasks = async (userId) => {
+    const tasks = await Task.findAll({ where: { userId, completed: false } });
+  
+    if (tasks.length !== 0) {
+      try {
+        await sequelize.transaction(async (transaction) => {
+          for (const task of tasks) {
+            await Task.update(
+              { isActive: false },
+              {
+                where: { id: task.id, userId },
+                transaction,
+              }
+            );
+          }
+        });
+      } catch (error) {
+        throw error;
+      }
+    }
+  
+    return;
+  };
+
 const onMarkTaskAsComplete = async (id, userId) => {
   const task = await Task.findOne({ where: { id, userId } });
 
@@ -94,5 +142,7 @@ module.exports = {
   onUpdateTaskTitle,
   onUpdateTaskOrder,
   onDeleteTask,
-  onMarkTaskAsComplete
+  onMarkTaskAsComplete,
+  onErasePendingTasks,
+  onEraseCompleteTasks,
 };

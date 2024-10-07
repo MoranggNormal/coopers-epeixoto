@@ -4,7 +4,9 @@ const {
   onUpdateTaskTitle,
   onUpdateTaskOrder,
   onDeleteTask,
-  onMarkTaskAsComplete
+  onMarkTaskAsComplete,
+  onErasePendingTasks,
+  onEraseCompleteTasks
 } = require("../database/queries/tasks");
 
 const getTasks = async (req, res) => {
@@ -100,6 +102,34 @@ const deleteTask = async (req, res) => {
   }
 };
 
+const eraseCompleteTasks = async (req, res) => {
+  const {
+    user,
+  } = req;
+
+  try {
+    await onEraseCompleteTasks(user.id);
+
+    return res.status(200).json({ message: "Tasks deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+const erasePendingTasks = async (req, res) => {
+  const {
+    user,
+  } = req;
+
+  try {
+    await onErasePendingTasks(user.id);
+
+    return res.status(200).json({ message: "Tasks deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 const markTaskAsComplete = async (req, res) => {
   const {
     user,
@@ -115,6 +145,8 @@ const markTaskAsComplete = async (req, res) => {
 
     return res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
+    console.log(error);
+    
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -125,5 +157,7 @@ module.exports = {
   updateTaskTitle,
   updateTaskOrder,
   deleteTask,
-  markTaskAsComplete
+  markTaskAsComplete,
+  erasePendingTasks,
+  eraseCompleteTasks
 };
