@@ -33,7 +33,7 @@ const Hero = () => {
 
       <Link
         href="#to-do-list"
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 -ml-[25px] sm:-ml-[40px] md:-ml-[80px] xl:-ml-[120px] 2xl:-ml-[400px] 3xl:-ml-[550px]"
+        className="absolute p-8 bottom-4 left-1/2 -translate-x-1/2 -ml-[25px] sm:-ml-[40px] md:-ml-[80px] xl:-ml-[120px] 2xl:-ml-[400px] 3xl:-ml-[550px]"
       >
         <button name="navigate">
           <img
