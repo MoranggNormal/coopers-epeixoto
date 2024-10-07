@@ -1,25 +1,25 @@
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import useFormErrors from "@/hooks/useFormErrors";
 import { useUser } from "@/app/userContext";
 import InputField from "@/components/InputField/Core";
 import SubmitButton from "@/components/SubmitButton/Core";
 import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
 
 import signIn from "@/static/images/signin.png";
+import ErrorMessage from "@/components/FormErrors/ErrorMessage/Core";
+import ManyErrorsMessage from "@/components/FormErrors/ManyErrorsMessage/Core";
 
 const Register = ({ closeModal, setSignInContext }) => {
   const { login } = useUser();
   const { refresh } = useRouter();
 
-  const [hasError, setHasError] = useState("");
-  const [hasManyErrors, setHasManyErrors] = useState([]);
+  const { errorMessage, errorsMessages, setError, setMultipleErrors, resetErrors } =
+    useFormErrors();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (hasError) {
-      setHasError(() => "");
-    }
+    resetErrors();
 
     const formData = new FormData(e.target);
     const name = formData.get("user-name");
@@ -42,11 +42,11 @@ const Register = ({ closeModal, setSignInContext }) => {
       } = data;
 
       if (errors) {
-        setHasManyErrors(errors);
+        setMultipleErrors(errors);
         return;
       }
 
-      setHasError(() => msg);
+      setError(msg);
       return;
     }
 
@@ -94,28 +94,9 @@ const Register = ({ closeModal, setSignInContext }) => {
             </button>
           </div>
 
-          {hasError && (
-            <div className="flex justify-center mt-4">
-              <span className="text-center text-[13px] text-red-400 bold">
-                {hasError}
-              </span>
-            </div>
-          )}
+          {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
-          {hasManyErrors && (
-            <div className="flex flex-col justify-center mt-4">
-              {hasManyErrors.map((error, index) => {
-                return (
-                  <span
-                    key={index}
-                    className="text-left text-[13x] text-red-400 bold"
-                  >
-                    {error.msg}
-                  </span>
-                );
-              })}
-            </div>
-          )}
+          {errorsMessages && <ManyErrorsMessage errors={errorsMessages} />}
         </form>
       </div>
     </div>

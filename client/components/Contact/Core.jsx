@@ -8,23 +8,20 @@ import woman from "@/static/images/woman.png";
 import graphism from "@/static/images/graphism-2.svg";
 import iconMail from "@/app/icons/icon-mail.svg";
 import { HTTP_EXCEPTIONS } from "@/constants/http-status-code";
+import useFormErrors from "@/hooks/useFormErrors";
+import ErrorMessage from "../FormErrors/ErrorMessage/Core";
+import ManyErrorsMessage from "../FormErrors/ManyErrorsMessage/Core";
 
 const Contact = () => {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [mailSent, setMailSent] = useState(false);
-  const [hasError, setHasError] = useState("");
-  const [hasManyErrors, setHasManyErrors] = useState([]);
+  const { errorMessage, errorsMessages, setError, setMultipleErrors, resetErrors } =
+    useFormErrors();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (hasError) {
-      setHasError(() => "");
-    }
-
-    if (hasManyErrors) {
-      setHasManyErrors(() => []);
-    }
+    resetErrors();
 
     setIsSendingMail(true);
 
@@ -45,18 +42,18 @@ const Contact = () => {
     const data = await response.json();
 
     if (response.status === HTTP_EXCEPTIONS.BAD_REQUEST.code) {
-      setIsSendingMail(false);
-
       const {
         data: { errors, msg },
       } = data;
 
+      setIsSendingMail(false);
+
       if (errors) {
-        setHasManyErrors(errors);
+        setMultipleErrors(errors);
         return;
       }
 
-      setHasError(() => msg);
+      setError(msg);
       return;
     }
 
@@ -121,7 +118,10 @@ const Contact = () => {
               className="w-full min-h-[150px] ring-[1px] ring-[#06152B] placeholder-[#9A9A9A] focus:outline-none hover:border-primary focus:border-primary focus:ring-1 focus:ring-primary rounded-[4px] px-4 py-2"
             />
           </label>
-          <SubmitButton text={isSendingMail ? "SENDING..." : "SEND NOW"} disabled={isSendingMail} />
+          <SubmitButton
+            text={isSendingMail ? "SENDING..." : "SEND NOW"}
+            disabled={isSendingMail}
+          />
         </form>
 
         {mailSent && (
@@ -132,28 +132,9 @@ const Contact = () => {
           </div>
         )}
 
-        {hasError && (
-          <div className="flex justify-center mt-4">
-            <span className="text-center text-[20px] text-red-400 bold">
-              {hasError}
-            </span>
-          </div>
-        )}
+        {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
-        {hasManyErrors && (
-          <div className="flex flex-col justify-center mt-4">
-            {hasManyErrors.map((error, index) => {
-              return (
-                <span
-                  key={index}
-                  className="text-left text-[13x] text-red-400 bold"
-                >
-                  {error.msg}
-                </span>
-              );
-            })}
-          </div>
-        )}
+        {errorsMessages && <ManyErrorsMessage errors={errorsMessages} />}
       </div>
     </section>
   );
