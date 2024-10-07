@@ -35,18 +35,10 @@ const getUserTasks = async (userId) => {
 
 const createTask = async (userId, title, description = "") => {
   try {
-    const maxOrderTask = await Task.findOne({
-      where: { completed: false },
-      order: [["order", "DESC"]],
-    });
-
-    const newOrder = maxOrderTask ? maxOrderTask.order + 1 : 0;
-
     const newTask = await Task.create({
       title,
       description,
       userId,
-      order: newOrder,
     });
 
     return newTask;

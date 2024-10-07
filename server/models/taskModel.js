@@ -32,6 +32,16 @@ const Task = sequelize.define(
     },
   },
   {
+    hooks: {
+      beforeCreate: async (task) => {
+        const maxOrderTask = await Task.findOne({
+          where: { completed: false },
+          order: [["order", "DESC"]],
+        });
+
+        task.order = maxOrderTask ? maxOrderTask.order + 1 : 0;
+      },
+    },
     timestamps: true,
   }
 );
