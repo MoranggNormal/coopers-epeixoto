@@ -40,6 +40,17 @@ const TaskList = () => {
 
   const removeTask = (id) => {
     setPendingTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    setCompletedTasks((prevTasks) =>
+      prevTasks.filter((task) => task.id !== id)
+    );
+  };
+
+  const markTaskAsCompleted = (id) => {
+    setPendingTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    setCompletedTasks((prevTasks) => [
+      ...prevTasks,
+      pendingTasks.find((task) => task.id === id),
+    ]);
   };
 
   const reorderTasks = (list, startIndex, endIndex) => {
@@ -139,7 +150,12 @@ const TaskList = () => {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
-                          <TaskItem id={id} title={title} removeTask={removeTask} />
+                          <TaskItem
+                            id={id}
+                            title={title}
+                            removeTask={removeTask}
+                            markTaskAsCompleted={markTaskAsCompleted}
+                          />
                         </div>
                       )}
                     </Draggable>
@@ -179,7 +195,14 @@ const TaskList = () => {
         <div className="mx-8 max-h-[280px] overflow-y-auto">
           {completedTasks.length > 0 &&
             completedTasks.map(({ id, title }) => {
-              return <DoneItem key={id} id={id} description={title} />;
+              return (
+                <DoneItem
+                  key={id}
+                  id={id}
+                  description={title}
+                  removeTask={removeTask}
+                />
+              );
             })}
         </div>
         {completedTasks.length > 0 && (

@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-
 import doneIcon from "@/app/icons/done-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
 
-const DoneItem = ({ id, description }) => {
+const DoneItem = ({ id, description, removeTask }) => {
   return (
     <button
       className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-default"
@@ -19,7 +17,7 @@ const DoneItem = ({ id, description }) => {
 
       <p>{description}</p>
 
-      <DeleteItem id={id} />
+      <DeleteItem id={id} removeTask={removeTask}/>
     </button>
   );
 };

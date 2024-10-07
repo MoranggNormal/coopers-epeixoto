@@ -7,73 +7,95 @@ import elipse from "@/app/icons/elipse.svg";
 import checkedIcon from "@/app/icons/checked-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
 
-const TaskItem = forwardRef(({ id, title, removeTask }, ref) => {
-  const { user } = useUser();
+const TaskItem = forwardRef(
+  ({ id, title, removeTask, markTaskAsCompleted }, ref) => {
+    const { user } = useUser();
 
-  const [text, setText] = useState(title);
-  const [isChecked, setIsChecked] = useState(false);
+    const [text, setText] = useState(title);
+    const [isChecked, setIsChecked] = useState(false);
 
-  const taskId = `task-${id}`;
+    const taskId = `task-${id}`;
 
-  const handleChange = (e) => {
-    setText(() => e.target.value);
-  };
+    const handleChange = (e) => {
+      setText(() => e.target.value);
+    };
 
-  const handleUpdateTask = async (id, title) => {
-    if (!user) {
-      return;
-    }
+    const handleCompleteTask = async () => {
+      if (!user) {
+        return;
+      }
 
-    let bodyContent = JSON.stringify({
-      id,
-      title,
-    });
+      let bodyContent = JSON.stringify({
+        id,
+      });
 
-    const response = await fetch(`/api/task/updateTaskTitle`, {
-      method: "PUT",
-      body: bodyContent,
-    });
+      const response = await fetch(`/api/task/markTaskAsComplete`, {
+        method: "PUT",
+        body: bodyContent,
+      });
 
-    await response.json();
-  };
+      await response.json();
 
-  const handleKeyDown = ({ key, target }) => {
-    if (key === "Enter" && id && target.value !== "") {
-      handleUpdateTask(id, target.value);
-    }
-  };
-  return (
-    <div
-      ref={ref}
-      className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-grab"
-    >
-      <button
-        className="w-[20px] h-[20px] cursor-pointer"
-        onClick={() => setIsChecked((prev) => !prev)}
-        aria-label={
-          isChecked ? "Mark task as incomplete" : "Mark task as complete"
-        }
+      setIsChecked(true);
+      markTaskAsCompleted(id);
+    };
+
+    const handleUpdateTaskTitle = async (id, title) => {
+      if (!user) {
+        return;
+      }
+
+      let bodyContent = JSON.stringify({
+        id,
+        title,
+      });
+
+      const response = await fetch(`/api/task/updateTaskTitle`, {
+        method: "PUT",
+        body: bodyContent,
+      });
+
+      await response.json();
+    };
+
+    const handleKeyDown = ({ key, target }) => {
+      if (key === "Enter" && id && target.value !== "") {
+        handleUpdateTaskTitle(id, target.value);
+      }
+    };
+    return (
+      <div
+        ref={ref}
+        className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-grab"
       >
-        <img
-          src={isChecked ? checkedIcon.src : elipse.src}
-          alt="Complete task"
+        <button
+          className="w-[20px] h-[20px] cursor-pointer"
+          onClick={handleCompleteTask}
+          aria-label={
+            isChecked ? "Mark task as incomplete" : "Mark task as complete"
+          }
+        >
+          <img
+            src={isChecked ? checkedIcon.src : elipse.src}
+            alt="Complete task"
+          />
+        </button>
+        <label htmlFor={taskId} className="sr-only">
+          Task item
+        </label>
+        <input
+          type="text"
+          id={taskId}
+          className="cursor-text"
+          value={text}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          aria-label="Task description"
         />
-      </button>
-      <label htmlFor={taskId} className="sr-only">
-        Task item
-      </label>
-      <input
-        type="text"
-        id={taskId}
-        className="cursor-text"
-        value={text}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        aria-label="Task description"
-      />
-      <DeleteItem id={id} removeTask={removeTask} />
-    </div>
-  );
-});
+        <DeleteItem id={id} removeTask={removeTask} />
+      </div>
+    );
+  }
+);
 
 export default TaskItem;

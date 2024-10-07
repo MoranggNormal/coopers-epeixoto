@@ -4,6 +4,7 @@ const {
   onUpdateTaskTitle,
   onUpdateTaskOrder,
   onDeleteTask,
+  onMarkTaskAsComplete
 } = require("../database/queries/tasks");
 
 const getTasks = async (req, res) => {
@@ -99,10 +100,30 @@ const deleteTask = async (req, res) => {
   }
 };
 
+const markTaskAsComplete = async (req, res) => {
+  const {
+    user,
+    body: { id },
+  } = req;
+
+  if (!id) {
+    return res.status(400).json({ message: "No task was provided" });
+  }
+
+  try {
+    await onMarkTaskAsComplete(id, user.id);
+
+    return res.status(200).json({ message: "Task deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   getTasks,
   setTask,
   updateTaskTitle,
   updateTaskOrder,
   deleteTask,
+  markTaskAsComplete
 };

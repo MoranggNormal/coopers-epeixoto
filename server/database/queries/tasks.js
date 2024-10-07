@@ -6,7 +6,7 @@ const getUserTasks = async (userId) => {
     const userTasks = await Task.findAll({
       where: {
         userId,
-        isActive: true
+        isActive: true,
       },
       order: [["order", "ASC"]],
     });
@@ -57,29 +57,42 @@ const onUpdateTaskOrder = async (tasksToUpdate, userId) => {
         );
       }
     });
-
   } catch (error) {
     throw error;
   }
 };
 
 const onDeleteTask = async (id, userId) => {
-    const task = await Task.findOne({ where: { id, userId } });
-  
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-  
-    task.isActive = false;
-    await task.save();
-  
-    return task;
-  };
+  const task = await Task.findOne({ where: { id, userId } });
+
+  if (!task) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+
+  task.isActive = false;
+  await task.save();
+
+  return task;
+};
+
+const onMarkTaskAsComplete = async (id, userId) => {
+  const task = await Task.findOne({ where: { id, userId } });
+
+  if (!task) {
+    return res.status(404).json({ message: "Task not found" });
+  }
+
+  task.completed = true;
+  await task.save();
+
+  return task;
+};
 
 module.exports = {
   getUserTasks,
   createTask,
   onUpdateTaskTitle,
   onUpdateTaskOrder,
-  onDeleteTask
+  onDeleteTask,
+  onMarkTaskAsComplete
 };
