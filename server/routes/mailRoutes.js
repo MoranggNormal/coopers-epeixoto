@@ -10,7 +10,6 @@ const validateErrors = require("../utils/validateErrors");
 const router = express.Router();
 
 router.route("/").post(
-  authenticateJWT,
   [
     check("email", "Please include a valid email").isEmail(),
     check("phone", "Phone is required").not().isEmpty(),

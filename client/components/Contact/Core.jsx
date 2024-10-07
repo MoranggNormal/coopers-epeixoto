@@ -1,22 +1,37 @@
 "use client";
 import { useState } from "react";
+import useFormErrors from "@/hooks/useFormErrors";
 
 import InputField from "../InputField/Core";
 import SubmitButton from "../SubmitButton/Core";
+import ErrorMessage from "../FormErrors/ErrorMessage/Core";
+import ManyErrorsMessage from "../FormErrors/ManyErrorsMessage/Core";
+
+import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
+
+import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
 
 import woman from "@/static/images/woman.png";
 import graphism from "@/static/images/graphism-2.svg";
 import iconMail from "@/app/icons/icon-mail.svg";
-import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
-import useFormErrors from "@/hooks/useFormErrors";
-import ErrorMessage from "../FormErrors/ErrorMessage/Core";
-import ManyErrorsMessage from "../FormErrors/ManyErrorsMessage/Core";
 
 const Contact = () => {
   const [isSendingMail, setIsSendingMail] = useState(false);
   const [mailSent, setMailSent] = useState(false);
-  const { errorMessage, errorsMessages, setError, setMultipleErrors, resetErrors } =
-    useFormErrors();
+  const {
+    errorMessage,
+    errorsMessages,
+    setError,
+    setMultipleErrors,
+    resetErrors,
+  } = useFormErrors();
+
+  const [phone, setPhone] = useState("");
+
+  const handlePhoneChange = (e) => {
+    const formattedPhone = formatPhoneNumber(e.target.value);
+    setPhone(formattedPhone);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,6 +121,8 @@ const Contact = () => {
               type="tel"
               placeholder="( ) ____-____"
               required
+              value={phone}
+              onChange={handlePhoneChange}
             />
           </div>
           <label htmlFor="message" className="text-[#06152B] text-[16px]">
