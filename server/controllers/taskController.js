@@ -1,6 +1,6 @@
 const {
   getUserTasks,
-  createTask,
+  onCreateTask,
   onUpdateTaskTitle,
   onUpdateTaskOrder,
   onDeleteTask,
@@ -24,7 +24,7 @@ const getTasks = async (req, res) => {
   }
 };
 
-const setTask = async (req, res) => {
+const createTask = async (req, res) => {
   const {
     user,
     body: { task },
@@ -35,7 +35,7 @@ const setTask = async (req, res) => {
   }
 
   try {
-    const newTask = await createTask(user.id, task);
+    const newTask = await onCreateTask(user.id, task);
 
     return res.status(201).json({ newTask });
   } catch (error) {
@@ -153,7 +153,7 @@ const markTaskAsComplete = async (req, res) => {
 
 module.exports = {
   getTasks,
-  setTask,
+  createTask,
   updateTaskTitle,
   updateTaskOrder,
   deleteTask,

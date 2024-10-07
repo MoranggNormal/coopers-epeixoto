@@ -17,7 +17,7 @@ const getUserTasks = async (userId) => {
   }
 };
 
-const createTask = async (userId, title, description = "") => {
+const onCreateTask = async (userId, title, description = "") => {
   try {
     const newTask = await Task.create({
       title,
@@ -138,7 +138,7 @@ const onMarkTaskAsComplete = async (id, userId) => {
 
 module.exports = {
   getUserTasks,
-  createTask,
+  onCreateTask,
   onUpdateTaskTitle,
   onUpdateTaskOrder,
   onDeleteTask,
