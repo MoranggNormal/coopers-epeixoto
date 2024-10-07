@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <section className="w-full h-[246px] relative flex items-center justify-center overflow-hidden">
-      <div className="absolute top-[40px] w-[200%] h-[95%] bg-black -rotate-2 -z-20" />
+      <div className="absolute top-[40px] w-[200%] h-[120%] bg-black -rotate-2 -z-20" />
       <div className="mt-[30px]">
         <h3 className="font-semibold text-white text-[24px] leading-[20px] text-center">
           Need help?
