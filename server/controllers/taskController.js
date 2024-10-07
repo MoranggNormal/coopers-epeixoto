@@ -3,7 +3,7 @@ const {
   createTask,
   onUpdateTaskTitle,
   onUpdateTaskOrder,
-} = require("../database/queries");
+} = require("../database/queries/tasks");
 
 const getTasks = async (req, res) => {
   const { user } = req;

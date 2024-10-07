@@ -1,22 +1,5 @@
-const { sequelize } = require("./database");
-const User = require("../models/userModel");
-const Task = require("../models/taskModel");
-
-const registerUser = async (name, email, password) => {
-  try {
-    await sequelize.authenticate();
-
-    const user = await User.create({
-      name: name,
-      email,
-      password,
-    });
-
-    return user;
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-};
+const { sequelize } = require("../database");
+const Task = require("../../models/taskModel");
 
 const getUserTasks = async (userId) => {
   try {
@@ -80,7 +63,6 @@ const onUpdateTaskOrder = async (tasksToUpdate, userId) => {
 };
 
 module.exports = {
-  registerUser,
   getUserTasks,
   createTask,
   onUpdateTaskTitle,
