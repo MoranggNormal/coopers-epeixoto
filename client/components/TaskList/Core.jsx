@@ -141,7 +141,10 @@ const TaskList = () => {
             {(provided) => (
               <div
                 {...provided.droppableProps}
-                ref={provided.innerRef}
+                ref={(el) => {
+                  provided.innerRef(el);
+                  taskListRef.current = el;
+                }}
                 className="mx-8 max-h-[280px] overflow-y-auto"
               >
                 {pendingTasks.length > 0 &&
