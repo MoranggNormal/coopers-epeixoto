@@ -4,7 +4,7 @@ dev:
 	docker-compose up -d --build database server client-dev nginx
 
 prod:
-	docker-compose up -d --build database server client-prod nginx
+	DOCKERFILE=Dockerfile.prod docker-compose up -d --build database server client-prod nginx
 
 shell:
 	docker exec -it $(CONTAINER_NAME) /bin/sh
@@ -14,6 +14,9 @@ stop:
 
 rm:
 	docker rm $(CONTAINER_NAME)
+
+down:
+	docker-compose down
 
 restart: stop run
 
