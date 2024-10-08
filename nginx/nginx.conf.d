@@ -15,4 +15,9 @@ server {
         add_header X-Cache-Status $upstream_cache_status always;
         proxy_redirect off;
     }
+
+    location /docs {
+        alias /usr/share/nginx/html;
+        try_files $uri $uri/ =404;
+    }
 }

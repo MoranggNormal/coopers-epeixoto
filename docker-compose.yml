@@ -75,6 +75,18 @@ services:
     depends_on:
       - server
 
+  nginx-prod:
+    build: ./nginx
+    ports:
+      - 80:80
+    networks:
+      - coopers-epeixoto
+    volumes:
+      - ./docs/build:/usr/share/nginx/html
+    restart: "on-failure"
+    depends_on:
+      - server
+
 networks:
   coopers-epeixoto:
     driver: bridge

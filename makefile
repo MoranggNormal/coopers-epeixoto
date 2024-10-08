@@ -4,7 +4,8 @@ dev:
 	docker-compose up -d --build database server client-dev nginx
 
 prod:
-	DOCKERFILE=Dockerfile.prod docker-compose up -d --build database server client-prod nginx
+	cd docs && npm run build
+	DOCKERFILE=Dockerfile.prod docker-compose up -d --build database server client-prod nginx-prod
 
 shell:
 	docker exec -it $(CONTAINER_NAME) /bin/sh
