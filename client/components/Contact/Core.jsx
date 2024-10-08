@@ -2,6 +2,7 @@
 import { useState } from "react";
 import useFormErrors from "@/hooks/useFormErrors";
 
+import Image from "next/image";
 import InputField from "../InputField/Core";
 import SubmitButton from "../SubmitButton/Core";
 import ErrorMessage from "../FormErrors/ErrorMessage/Core";
@@ -87,7 +88,7 @@ const Contact = () => {
         />
       </div>
 
-      <div className="w-full max-w-[640px] py-20 px-10 md:px-20 rounded-[4px] shadow-md">
+      <div className="w-full max-w-[640px] py-20 px-10 md:px-20 rounded-[4px] shadow-lg">
         <div className="flex items-center gap-4">
           <div className="w-[60px] h-[60px] bg-primary rounded-[2px] flex items-center justify-center">
             <img src={iconMail.src} alt="Mail" className="w-[32px] h-[32px]" />

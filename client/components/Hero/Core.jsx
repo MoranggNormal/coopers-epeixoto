@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import bgHero from "@/static/images/bg-hero.svg";
 import iconScroll from "@/app/icons/icon-scroll.svg";
@@ -30,21 +31,24 @@ const Hero = () => {
 
         <Link
           href="#to-do-list"
-          className="absolute p-8 bottom-4 left-1/2 -translate-x-1/2 -ml-[25px] sm:-ml-[40px] md:-ml-[80px] xl:-ml-[120px] 2xl:-ml-[400px] 3xl:-ml-[550px]"
+          className="absolute p-8 -bottom-8 left-1/2 -translate-x-1/2 -ml-[25px] sm:-ml-[40px] md:-ml-[80px] xl:-ml-[120px] 2xl:-ml-[400px] 3xl:-ml-[550px]"
         >
           <button name="navigate">
-            <img
-              className="w-[40px] h-[40px]"
+            <Image
               src={iconScroll.src}
               alt="arrow bottom"
-            ></img>
+              width={20}
+              height={20}
+            />
           </button>
         </Link>
       </section>
-      <img
+      <Image
         src={bgHero.src}
-        alt=""
+        alt="Background"
         className="absolute right-0 top-[24px] -z-20 object-contain w-[200px] sm:w-[300px] md:w-[400px] lg:w-[500px] xl:w-[640px]"
+        width={1}
+        height={1}
       />
     </>
   );

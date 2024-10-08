@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useFormErrors from "@/hooks/useFormErrors";
 import { useUser } from "@/app/userContext";
+import Image from "next/image";
 import InputField from "@/components/InputField/Core";
 import SubmitButton from "@/components/SubmitButton/Core";
 import { HTTP_EXCEPTIONS } from "@/constants/http-exceptions-code";
@@ -68,7 +69,8 @@ const Register = ({ closeModal, setSignInContext }) => {
   return (
     <div className="p-20 items-center">
       <div className="flex gap-8 items-center">
-        <img src={signIn.src} alt="Woman pointing top-right" className="hidden lg:block" />
+        <Image src={signIn.src} alt="Woman pointing top-right" className="hidden lg:block" width={1}
+        height={1} />
         <span>
           <p className="text-[70px]">
             <b>Sign Up</b>

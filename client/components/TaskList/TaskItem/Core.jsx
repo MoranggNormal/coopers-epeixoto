@@ -3,6 +3,8 @@
 import { useState, forwardRef } from "react";
 import { useUser } from "@/app/userContext";
 
+import Image from "next/image";
+
 import elipse from "@/app/icons/elipse.svg";
 import checkedIcon from "@/app/icons/checked-icon.svg";
 import DeleteItem from "../DeleteItem/Core";
@@ -75,9 +77,11 @@ const TaskItem = forwardRef(
             isChecked ? "Mark task as incomplete" : "Mark task as complete"
           }
         >
-          <img
+          <Image
             src={isChecked ? checkedIcon.src : elipse.src}
             alt="Complete task"
+            width={1}
+        height={1}
           />
         </button>
         <label htmlFor={taskId} className="sr-only">

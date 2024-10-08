@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useUser } from "@/app/userContext";
 
+import Image from "next/image";
 import CreateTaskItem from "./CreateTaskItem/Core";
 import DoneItem from "./DoneItem/Core";
 import EraseItems from "./EraseItems/Core";
@@ -226,10 +227,12 @@ const TaskList = () => {
         )}
       </div>
 
-      <img
+      <Image
         src={graphism.src}
-        alt=""
+        alt="Graphism"
         className="absolute left-0 -top-[5%] -z-20"
+        width={130}
+        height={130}
       />
     </section>
   );

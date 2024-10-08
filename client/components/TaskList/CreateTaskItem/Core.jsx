@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useUser } from "@/app/userContext";
 
+import Image from "next/image";
+
 import elipse from "@/app/icons/elipse.svg";
 import AuthModal from "@/components/Auth/AuthModal/Core";
 
@@ -63,11 +65,13 @@ const CreateTaskItem = ({ addNewPendingTask }) => {
         className="relative w-full group flex gap-4 py-2 text-[16px] transition-all text-secondary"
         aria-label={"Start typing to create a new task"}
       >
-        <img
+        <Image
           className="w-[20px] h-[20px]"
           src={elipse.src}
           alt="Create a new task"
-        ></img>
+          width={1}
+        height={1}
+        />
         <label htmlFor="create-task-item" className="sr-only">
           {text}
         </label>
