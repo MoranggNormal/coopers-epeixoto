@@ -80,8 +80,8 @@ const TaskItem = forwardRef(
           <Image
             src={isChecked ? checkedIcon.src : elipse.src}
             alt="Complete task"
-            width={1}
-        height={1}
+            width={24}
+            height={24}
           />
         </button>
         <label htmlFor={taskId} className="sr-only">
