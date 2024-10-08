@@ -37,6 +37,7 @@ services:
       - database
 
   client-dev:
+    container_name: client
     build:
       context: ./client
       target: dev
@@ -52,6 +53,7 @@ services:
     restart: "on-failure"
 
   client-prod:
+    container_name: client
     build:
       context: ./client
       target: runner
