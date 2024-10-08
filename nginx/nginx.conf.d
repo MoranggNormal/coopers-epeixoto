@@ -16,7 +16,7 @@ server {
         proxy_redirect off;
     }
 
-    location /docs {
+    location /resources {
         alias /usr/share/nginx/html;
         try_files $uri $uri/ =404;
     }

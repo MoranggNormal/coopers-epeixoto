@@ -1,11 +1,11 @@
 CONTAINER_NAME ?=
 
 dev:
-	docker-compose up -d --build database server client-dev nginx
+	docker compose up -d --build database server client-dev nginx
 
 prod:
 	cd docs && npm run build
-	DOCKERFILE=Dockerfile.prod docker-compose up -d --build database server client-prod nginx-prod
+	DOCKERFILE=Dockerfile.prod docker compose up -d --build database server client-prod nginx-prod
 
 shell:
 	docker exec -it $(CONTAINER_NAME) /bin/sh
@@ -17,7 +17,7 @@ rm:
 	docker rm $(CONTAINER_NAME)
 
 down:
-	docker-compose down
+	docker compose down
 
 restart: stop run
 
