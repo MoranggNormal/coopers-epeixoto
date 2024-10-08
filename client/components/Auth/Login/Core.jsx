@@ -66,8 +66,8 @@ const Login = ({ closeModal, setSignUpContext }) => {
   return (
     <div className="p-20 items-center">
       <div className="flex gap-8 items-center">
-        <Image src={signIn.src} alt="Woman pointing top-right" className="hidden lg:block" width={1}
-        height={1}/>
+        <Image src={signIn.src} alt="Woman pointing top-right" className="hidden lg:block" width={231}
+        height={231}/>
         <span>
           <p className="text-[70px]">
             <b>Sign In</b>
