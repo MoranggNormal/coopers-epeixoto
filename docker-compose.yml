@@ -37,15 +37,26 @@ services:
     depends_on:
       - database
 
-  client:
+  client-dev:
     build:
       context: ./client
       target: dev
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - ./client:/client
       - /client/node_modules
       - /client/.next
+    ports:
+      - "3000:3000"
+    networks:
+      - coopers-epeixoto
+    restart: "on-failure"
+
+  client-prod:
+    build:
+      context: ./client
+      target: runner
+      dockerfile: Dockerfile.prod
     ports:
       - "3000:3000"
     networks:
@@ -60,7 +71,6 @@ services:
       - coopers-epeixoto
     restart: "on-failure"
     depends_on:
-      - client
       - server
 
 networks:
