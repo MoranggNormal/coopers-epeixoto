@@ -58,7 +58,7 @@ const updateTaskTitle = async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "Task updated successfully", updatedTask });
+      .json({ message: "Task title updated successfully", updatedTask });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
@@ -143,7 +143,7 @@ const markTaskAsComplete = async (req, res) => {
   try {
     await onMarkTaskAsComplete(id, user.id);
 
-    return res.status(200).json({ message: "Task deleted successfully" });
+    return res.status(200).json({ message: "Task completed successfully" });
   } catch (error) {
     console.log(error);
     

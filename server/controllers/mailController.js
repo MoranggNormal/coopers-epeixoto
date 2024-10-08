@@ -34,7 +34,7 @@ const sendMail = async (req, res) => {
     res.status(200).send({ message: "Mail sent" });
   } catch (err) {
     console.error(err.message);
-    res.status(400).send("Server error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

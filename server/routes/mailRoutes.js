@@ -3,8 +3,6 @@ const { check } = require("express-validator");
 
 const { sendMail } = require("../controllers/mailController");
 
-const authenticateJWT = require("../middleware/authMiddleware");
-
 const validateErrors = require("../utils/validateErrors");
 
 const router = express.Router();
