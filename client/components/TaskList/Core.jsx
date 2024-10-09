@@ -198,7 +198,7 @@ const TaskList = () => {
             </p>
           ) : (
             <p className="px-2 text-[20px] text-center">
-              You don't have completed any yet...
+              You have't completed any yet...
               <br />{" "}
               <span className="font-bold">
                 They will appear here once you mark them as complete!
