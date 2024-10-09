@@ -62,7 +62,7 @@ const CreateTaskItem = ({ addNewPendingTask }) => {
   return (
     <>
       <button
-        className="relative w-full group flex gap-4 py-2 text-[16px] transition-all text-secondary"
+        className="relative p-2 w-full group flex gap-4 py-2 text-[16px] transition-all text-secondary"
         aria-label={"Start typing to create a new task"}
       >
         <Image
