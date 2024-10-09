@@ -58,9 +58,9 @@ $ make dev
 
 Now your app should be running on localhost
 
-For other OS users, it may be not enough and you should have a bit more work. I can not give support at moment.
+For other OS users, it may be not enough and you may have a bit more work. I can not give support at the moment.
 
-If you want to run Docusaurus (API) locally, move to ./docs and type:
+If you want to run Docusaurus (API Documentation) locally, move to ./docs and type:
 
 ```shell
 $ npm run install
