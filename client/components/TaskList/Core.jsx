@@ -178,11 +178,13 @@ const TaskList = () => {
 
         <div className="mx-8">
           <CreateTaskItem addNewPendingTask={addNewPendingTask} />
-          <EraseItems
-            context={ERASE_ITEMS.PENDING}
-            erasePending={erasePending}
-            eraseCompleted={eraseCompleted}
-          />
+          {pendingTasks.length > 0 && (
+            <EraseItems
+              context={ERASE_ITEMS.PENDING}
+              erasePending={erasePending}
+              eraseCompleted={eraseCompleted}
+            />
+          )}
         </div>
       </div>
 
