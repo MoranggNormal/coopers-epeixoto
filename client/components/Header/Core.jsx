@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useUser } from "@/app/userContext";
 
+import Link from "next/link";
 import AuthModal from "../Auth/AuthModal/Core";
 import Logo from "../Logo/Core";
 
@@ -32,6 +33,8 @@ const Header = () => {
 
   return (
     <>
+        <div className="w-full h-6 fixed top-0 bg-black z-[999] text-center text-white font-poppins bold"><Link href="/resources">API Documentation</Link></div>
+
       <header className="w-full absolute top-[54px] px-[22px] md:px-[60px] lg:px-[80px] z-10">
         <div className="flex justify-between">
           <Logo />
