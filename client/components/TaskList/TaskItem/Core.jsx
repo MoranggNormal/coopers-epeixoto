@@ -68,7 +68,7 @@ const TaskItem = forwardRef(
     return (
       <div
         ref={ref}
-        className="relative w-full group flex gap-4 py-2 text-[16px] transition-all cursor-grab"
+        className="relative w-full group flex gap-4 my-2 text-[16px] transition-all cursor-grab border p-2 rounded-md"
       >
         <button
           className="w-[20px] h-[20px] cursor-pointer"
@@ -90,7 +90,7 @@ const TaskItem = forwardRef(
         <input
           type="text"
           id={taskId}
-          className="cursor-text"
+          className="cursor-text w-[65%]"
           value={text}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

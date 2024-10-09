@@ -18,7 +18,7 @@ const DoneItem = ({ id, description, removeTask }) => {
         height={1}
       />
 
-      <p>{description}</p>
+      <p className="break-all text-left w-[65%]">{description}</p>
 
       <DeleteItem id={id} removeTask={removeTask}/>
     </button>

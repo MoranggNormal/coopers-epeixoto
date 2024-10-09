@@ -27,7 +27,7 @@ const DeleteItem = ({ id, removeTask}) => {
   return (
     <span
       onClick={() => handleDelete(id)}
-      className="hidden group-hover:block absolute right-0 cursor-pointer font-bold text-[#999999] hover:text-red-400 transition-all"
+      className="hidden group-hover:block absolute right-2 cursor-pointer font-bold text-[14px] text-[#999999] hover:text-red-400 transition-all"
     >
       delete
     </span>
