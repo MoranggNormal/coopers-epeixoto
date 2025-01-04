@@ -11,7 +11,7 @@
   "dependencies": {
     "@hello-pangea/dnd": "^17.0.0",
     "jsonwebtoken": "^9.0.2",
-    "next": "14.2.14",
+    "next": "14.2.21",
     "react": "^18",
     "react-dom": "^18",
     "sharp": "^0.33.5",
